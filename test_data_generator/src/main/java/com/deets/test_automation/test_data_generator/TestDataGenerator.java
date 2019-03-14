@@ -38,7 +38,7 @@ public class TestDataGenerator {
 		TransformerFactory transformerFactory = TransformerFactory.newInstance();
 		Transformer transformer = transformerFactory.newTransformer();
 		DOMSource source = new DOMSource(doc);
-		StreamResult result = new StreamResult(new File("/Users/Exaserv/Documents/dev/Eclipse_Workspace_2018/test_data_generator/OutputFiles/TestDataOutput.xml"));
+		StreamResult result = new StreamResult(new File("OutputFiles/TestDataOutput.xml"));
 		transformer.transform(source, result);
 		System.out.println("File saved!");		
 	}
@@ -84,7 +84,7 @@ public class TestDataGenerator {
 		
 	}
 	public void generateEmployee(Locale loc){
-		Person person = Fairy.builder().withFilePrefix("test").build().create().person();
+		Person person = Fairy.builder().withLocale(loc).withFilePrefix("test").build().person();
 		org.w3c.dom.Element employeeNode = appendChild(createElement("Employee",""),rootElementParent);
 		generateBiographicalData(person,employeeNode);
 		generateAddress(person,employeeNode);
