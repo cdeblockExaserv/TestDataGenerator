@@ -84,7 +84,16 @@ public class TestDataGenerator {
 		
 	}
 	public void generateEmployee(Locale loc){
-		Person person = Fairy.builder().withLocale(loc).withFilePrefix("test").build().person();
+		Person person;
+		
+		if (loc == Locale.US) {
+			person = Fairy.builder().withFilePrefix("us").build().person();
+		} else if (loc == Locale.CANADA_FRENCH){
+			person = Fairy.builder().withFilePrefix("ca").build().person();
+		} else {
+			person = Fairy.builder().withFilePrefix("us").build().person();
+		}
+		//Person person = Fairy.builder().withLocale(loc).withFilePrefix("test").build().person();
 		org.w3c.dom.Element employeeNode = appendChild(createElement("Employee",""),rootElementParent);
 		generateBiographicalData(person,employeeNode);
 		generateAddress(person,employeeNode);
@@ -112,9 +121,9 @@ public class TestDataGenerator {
 		System.out.println(prompt + " ");
 		System.out.println("1. USA");
 		System.out.println("2. Canada");
-		System.out.println("3. Chinese");
+		/*System.out.println("3. Chinese");
 		System.out.println("4. Italy ");
-		System.out.println("5. Germany ");
+		System.out.println("5. Germany ");*/
 		try{
 			BufferedReader is = new BufferedReader(new InputStreamReader(System.in));
 			inputLine = is.readLine();
