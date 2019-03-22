@@ -38,7 +38,7 @@ public class TestDataGenerator {
 		TransformerFactory transformerFactory = TransformerFactory.newInstance();
 		Transformer transformer = transformerFactory.newTransformer();
 		DOMSource source = new DOMSource(doc);
-		StreamResult result = new StreamResult(new File("/Users/Exaserv/Documents/dev/Eclipse_Workspace_2018/test_data_generator/OutputFiles/TestDataOutput.xml"));
+		StreamResult result = new StreamResult(new File("OutputFiles/TestDataOutput.xml"));
 		transformer.transform(source, result);
 		System.out.println("File saved!");		
 	}
@@ -84,7 +84,20 @@ public class TestDataGenerator {
 		
 	}
 	public void generateEmployee(Locale loc){
-		Person person = Fairy.builder().withFilePrefix("test").build().create().person();
+		Person person;
+		
+		if (loc == Locale.US) {
+			person = Fairy.builder().withFilePrefix("us").build().person();
+		} else if (loc == Locale.CANADA_FRENCH){
+			person = Fairy.builder().withFilePrefix("ca").build().person();
+		}else if(loc == Locale.UK) { 
+			person = Fairy.builder().withFilePrefix("uk").build().person();
+		}else if(loc == Locale.FRANCE) {
+			person = Fairy.builder().withFilePrefix("fr").build().person();
+		}else {
+			person = Fairy.builder().withFilePrefix("us").build().person();
+		}
+		//Person person = Fairy.builder().withLocale(loc).withFilePrefix("test").build().person();
 		org.w3c.dom.Element employeeNode = appendChild(createElement("Employee",""),rootElementParent);
 		generateBiographicalData(person,employeeNode);
 		generateAddress(person,employeeNode);
@@ -112,9 +125,8 @@ public class TestDataGenerator {
 		System.out.println(prompt + " ");
 		System.out.println("1. USA");
 		System.out.println("2. Canada");
-		System.out.println("3. Chinese");
-		System.out.println("4. Italy ");
-		System.out.println("5. Germany ");
+		System.out.println("3. UK");
+		System.out.println("4. France");
 		try{
 			BufferedReader is = new BufferedReader(new InputStreamReader(System.in));
 			inputLine = is.readLine();
@@ -131,13 +143,10 @@ public class TestDataGenerator {
 			loc = Locale.CANADA_FRENCH;
 			break;
 		case 3:
-			loc = Locale.PRC;
+			loc = Locale.UK;
 			break;
 		case 4:
-			loc = Locale.ITALIAN;
-			break;
-		case 5:
-			loc = Locale.GERMAN;
+			loc = Locale.FRANCE;
 			break;
 		default:
 			loc = Locale.US;
