@@ -4,8 +4,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -15,7 +13,9 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-import com.devskiller.jfairy.Fairy;
+import com.deets.test_automation.test_data_generator.Employee.DefaultEmployeeProvider;
+import com.deets.test_automation.test_data_generator.Employee.Employee;
+import com.deets.test_automation.test_data_generator.Fairy.Fairy;
 import com.devskiller.jfairy.producer.person.Person;
 
 public class TestDataGenerator {
@@ -61,46 +61,60 @@ public class TestDataGenerator {
 		elementRoot.appendChild(elementToInsert);
 		return elementToInsert;
 	}
-	public void generateBiographicalData(Person employee,org.w3c.dom.Element employeeNode){
+	public void generateBiographicalData(Employee employee,org.w3c.dom.Element employeeNode){
 		org.w3c.dom.Element segmentNode = appendChild(createElement("BiographicalData",""),employeeNode);
-		appendChild(createElement("DateofBirth",employee.getDateOfBirth().toString()),segmentNode);
-		appendChild(createElement("FirstName",employee.getFirstName()),segmentNode);
-		appendChild(createElement("Middlename",employee.getMiddleName()),segmentNode);
-		appendChild(createElement("LastName",employee.getLastName()),segmentNode);
-		appendChild(createElement("Gender",employee.getSex().toString()),segmentNode);
-		appendChild(createElement("DisplayName",employee.getFullName()),segmentNode);
-		appendChild(createElement("BirthName",employee.getFullName()),segmentNode);
-		appendChild(createElement("MartialStatusSince",Fairy.create().dateProducer().randomDateInThePast(employee.getAge()).format(DateTimeFormatter.ofPattern("YYYY-MM-dd"))),segmentNode);
+		appendChild(createElement("EmployeeID",employee.getEmployeeID()),segmentNode);
+		appendChild(createElement("DateofBirth",employee.person.getDateOfBirth().toString()),segmentNode);
+		appendChild(createElement("FirstName",employee.person.getFirstName()),segmentNode);
+		appendChild(createElement("Middlename",employee.person.getMiddleName()),segmentNode);
+		appendChild(createElement("LastName",employee.person.getLastName()),segmentNode);
+		appendChild(createElement("Prefix",employee.getPrefix()),segmentNode);
+		appendChild(createElement("Suffix",employee.getSuffix()),segmentNode);
+		appendChild(createElement("Gender",employee.person.getSex().toString()),segmentNode);
+		appendChild(createElement("DisplayName",employee.getDisplayName()),segmentNode);
+		appendChild(createElement("BirthName",employee.getBirthName()),segmentNode);
+		appendChild(createElement("MaritalStatus",employee.getMaritalStatus()),segmentNode);
+		appendChild(createElement("MartialStatusSince",employee.getMaritalStatusSince().toString()),segmentNode);
 		appendChild(createElement("Nationality",loc.getCountry()),segmentNode);
 
 	}
-	public void generateAddress(Person employee,org.w3c.dom.Element employeeNode){
+	public void generateAddress(Employee employee,org.w3c.dom.Element employeeNode){
 		org.w3c.dom.Element segmentNode = appendChild(createElement("Address",""),employeeNode);
-		appendChild(createElement("Line1",employee.getAddress().getAddressLine1()),segmentNode);
-		appendChild(createElement("Line2",employee.getAddress().getAddressLine2()),segmentNode);
-		appendChild(createElement("ApartmentNumber",employee.getAddress().getApartmentNumber()),segmentNode);
-		appendChild(createElement("City",employee.getAddress().getCity()),segmentNode);
-		appendChild(createElement("ZipCode",employee.getAddress().getPostalCode()),segmentNode);
+		appendChild(createElement("Line1",employee.person.getAddress().getAddressLine1()),segmentNode);
+		appendChild(createElement("Line2",employee.person.getAddress().getAddressLine2()),segmentNode);
+		appendChild(createElement("ApartmentNumber",employee.person.getAddress().getApartmentNumber()),segmentNode);
+		appendChild(createElement("City",employee.person.getAddress().getCity()),segmentNode);
+		appendChild(createElement("ZipCode",employee.person.getAddress().getPostalCode()),segmentNode);
 		
 	}
 	public void generateEmployee(Locale loc){
-		Person person;
-		
+		//Person person;
+		Employee employee;
 		if (loc == Locale.US) {
-			person = Fairy.builder().withFilePrefix("us").build().person();
-		} else if (loc == Locale.CANADA_FRENCH){
-			person = Fairy.builder().withFilePrefix("ca").build().person();
+			//person = Fairy.builder().withFilePrefix("us").build().person() ;
+			Globals.LOC = "us";
+			employee = Fairy.builder().withFilePrefix("us").build().employee();
+		} else if (loc == Locale.CANADA_FRENCH) {
+			//person = Fairy.builder().withFilePrefix("ca").build().person();
+			Globals.LOC = "ca";
+			employee = Fairy.builder().withFilePrefix("ca").build().employee();
 		}else if(loc == Locale.UK) { 
-			person = Fairy.builder().withFilePrefix("uk").build().person();
+			//person = Fairy.builder().withFilePrefix("uk").build().person();
+			Globals.LOC = "uk";
+			employee = Fairy.builder().withFilePrefix("uk").build().employee();
 		}else if(loc == Locale.FRANCE) {
-			person = Fairy.builder().withFilePrefix("fr").build().person();
+			//person = Fairy.builder().withFilePrefix("fr").build().person();
+			Globals.LOC = "fr";
+			employee = Fairy.builder().withFilePrefix("fr").build().employee();
 		}else {
-			person = Fairy.builder().withFilePrefix("us").build().person();
+			//person = Fairy.builder().withFilePrefix("us").build().person();
+			Globals.LOC = "us";
+			employee = Fairy.builder().withFilePrefix("us").build().employee();
 		}
 		//Person person = Fairy.builder().withLocale(loc).withFilePrefix("test").build().person();
 		org.w3c.dom.Element employeeNode = appendChild(createElement("Employee",""),rootElementParent);
-		generateBiographicalData(person,employeeNode);
-		generateAddress(person,employeeNode);
+		generateBiographicalData(employee,employeeNode);
+		generateAddress(employee,employeeNode);
 		//System.out.println(person.getAddress());
 		
 	}
