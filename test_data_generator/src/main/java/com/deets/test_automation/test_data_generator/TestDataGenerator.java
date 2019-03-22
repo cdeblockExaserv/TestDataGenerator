@@ -13,10 +13,8 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-import com.deets.test_automation.test_data_generator.Employee.DefaultEmployeeProvider;
 import com.deets.test_automation.test_data_generator.Employee.Employee;
 import com.deets.test_automation.test_data_generator.Fairy.Fairy;
-import com.devskiller.jfairy.producer.person.Person;
 
 public class TestDataGenerator {
 	DocumentBuilderFactory docFactory;

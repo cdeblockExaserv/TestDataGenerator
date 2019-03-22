@@ -1,13 +1,7 @@
 package com.deets.test_automation.test_data_generator.Employee;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 
-import com.devskiller.jfairy.Fairy;
-import com.devskiller.jfairy.producer.company.Company;
-import com.devskiller.jfairy.producer.person.Address;
-import com.devskiller.jfairy.producer.person.Country;
 import com.devskiller.jfairy.producer.person.Person;
 
 public class Employee {

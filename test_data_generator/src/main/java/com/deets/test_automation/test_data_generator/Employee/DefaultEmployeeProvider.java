@@ -2,11 +2,8 @@ package com.deets.test_automation.test_data_generator.Employee;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Locale;
 
 import javax.inject.Inject;
-
-import org.apache.commons.math3.random.RandomGenerator;
 
 import com.deets.test_automation.test_data_generator.Globals;
 import com.deets.test_automation.test_data_generator.Fairy.Fairy;
