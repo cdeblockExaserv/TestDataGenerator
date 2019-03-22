@@ -44,6 +44,8 @@ import com.devskiller.jfairy.producer.util.LanguageCode;
  * @author Jakub Kubrynski
  * @author Olga Maciaszek-Sharma
  */
+
+//Altered imports after copy
 public class Bootstrap {
 
 	private static final Logger LOG = LoggerFactory.getLogger(Bootstrap.class);

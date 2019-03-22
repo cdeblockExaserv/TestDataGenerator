@@ -48,6 +48,7 @@ public class TestDataGenerator {
 	    rootElementParent = doc.createElement("Employees");
 	    doc.appendChild(rootElementParent);
 	}
+	
 	public org.w3c.dom.Element createElement(String tag, String value){
 		org.w3c.dom.Element Employee = doc.createElement(tag);
 		if(value != null){
@@ -55,10 +56,12 @@ public class TestDataGenerator {
 		}
 		return Employee;
 	}
+	
 	public org.w3c.dom.Element appendChild(org.w3c.dom.Element elementToInsert,org.w3c.dom.Element elementRoot){
 		elementRoot.appendChild(elementToInsert);
 		return elementToInsert;
 	}
+	
 	public void generateBiographicalData(Employee employee,org.w3c.dom.Element employeeNode){
 		org.w3c.dom.Element segmentNode = appendChild(createElement("BiographicalData",""),employeeNode);
 		appendChild(createElement("EmployeeID",employee.getEmployeeID()),segmentNode);
@@ -76,6 +79,7 @@ public class TestDataGenerator {
 		appendChild(createElement("Nationality",loc.getCountry()),segmentNode);
 
 	}
+	
 	public void generateAddress(Employee employee,org.w3c.dom.Element employeeNode){
 		org.w3c.dom.Element segmentNode = appendChild(createElement("Address",""),employeeNode);
 		appendChild(createElement("Line1",employee.person.getAddress().getAddressLine1()),segmentNode);
@@ -85,6 +89,7 @@ public class TestDataGenerator {
 		appendChild(createElement("ZipCode",employee.person.getAddress().getPostalCode()),segmentNode);
 		
 	}
+	
 	public void generateEmployee(Locale loc){
 		//Person person;
 		Employee employee;
@@ -114,8 +119,8 @@ public class TestDataGenerator {
 		generateBiographicalData(employee,employeeNode);
 		generateAddress(employee,employeeNode);
 		//System.out.println(person.getAddress());
-		
 	}
+	
 	public Integer getEmployeesCount(String prompt){
 		String inputLine = null;
 	
@@ -131,6 +136,7 @@ public class TestDataGenerator {
 		return Integer.parseInt(inputLine);
 		
 	}
+	
 	public Locale getLocale(String prompt){
 		String inputLine = null;
 		
@@ -167,5 +173,4 @@ public class TestDataGenerator {
 		return loc;
 	}
 	
-
 }

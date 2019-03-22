@@ -101,6 +101,7 @@ public final class Fairy {
 	 * @param employeeProperties desired employee features
 	 * @return A {@link com.deets.test_automation.test_data_generator.Employee.Employee} instance
 	 */
+	//Added after copy 
 	public Employee employee( EmployeeProperties.EmployeeProperty... employeeProperties) {
 		return employeeFactory.produceEmployeeProvider(employeeProperties).get();
 	}

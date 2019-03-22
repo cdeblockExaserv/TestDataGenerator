@@ -4,12 +4,12 @@ import java.time.LocalDate;
 
 import com.devskiller.jfairy.producer.person.Person;
 
-public class Employee {
+public class Employee /*extends Person*/{
 	
-	/*
-	 * public enum MaritalStatus { SINGLE, MARRIED, WIDOWED, DIVORCED, SEPARATED,
-	 * REGISTRED_PARTNERSHIP }
-	 */
+//	
+//	public enum MaritalStatus { SINGLE, MARRIED, WIDOWED, DIVORCED, SEPARATED,
+//	REGISTRED_PARTNERSHIP }
+//	
 	
 	public Person person;
 	

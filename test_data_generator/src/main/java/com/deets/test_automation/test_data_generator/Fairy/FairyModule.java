@@ -7,6 +7,8 @@ import com.devskiller.jfairy.data.DataMaster;
 import com.devskiller.jfairy.producer.RandomGenerator;
 import com.google.inject.assistedinject.FactoryModuleBuilder;
 
+//Altered after copy
+
 public class FairyModule extends com.devskiller.jfairy.FairyModule {
 
 	
