@@ -1,5 +1,6 @@
-package com.deets.test_automation.test_data_generator.Fairy;
+package com.deets.test_automation.test_data_generator.Locale;
 
+import com.deets.test_automation.test_data_generator.Fairy.FairyModule;
 import com.devskiller.jfairy.data.DataMaster;
 import com.devskiller.jfairy.producer.RandomGenerator;
 import com.devskiller.jfairy.producer.person.NationalIdentificationNumberFactory;

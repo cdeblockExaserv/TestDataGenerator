@@ -77,6 +77,7 @@ public class TestDataGenerator {
 		appendChild(createElement("MaritalStatus",employee.getMaritalStatus()),segmentNode);
 		appendChild(createElement("MartialStatusSince",employee.getMaritalStatusSince().toString()),segmentNode);
 		appendChild(createElement("Nationality",loc.getCountry()),segmentNode);
+		appendChild(createElement("NationalIDNumber",employee.person.getNationalIdentityCardNumber()),segmentNode);
 
 	}
 	
@@ -89,6 +90,25 @@ public class TestDataGenerator {
 		appendChild(createElement("ZipCode",employee.person.getAddress().getPostalCode()),segmentNode);
 		
 	}
+	
+	public void generateDependent(Employee employee,org.w3c.dom.Element employeeNode){
+		org.w3c.dom.Element segmentNode = appendChild(createElement("Dependent",""),employeeNode);
+		appendChild(createElement("Date",employee.getDependent().getDate().toString()),segmentNode);
+		appendChild(createElement("Relationship",employee.getDependent().getRelationship()),segmentNode);
+		appendChild(createElement("DateOfBirth",employee.getDependent().getPerson().getDateOfBirth().toString()),segmentNode);
+		appendChild(createElement("FirstName",employee.getDependent().getPerson().getFirstName()),segmentNode);
+		appendChild(createElement("MiddleName",employee.getDependent().getPerson().getMiddleName()),segmentNode);
+		appendChild(createElement("LastName",employee.getDependent().getPerson().getLastName()),segmentNode);
+	}
+	
+	//TODO: Determine how and what exactly needs to be in NationalIDInfo?
+//	public void generateNationalInfo(Employee employee,org.w3c.dom.Element employeeNode){
+//		org.w3c.dom.Element segmentNode = appendChild(createElement("NationalIdInfo",""),employeeNode);
+//		appendChild(createElement("NationalIDNumber",employee.person.getNationalIdentificationNumber()),segmentNode);
+//		//appendChild(createElement("NationalIDType",employee.),segmentNode);
+//		appendChild(createElement("NationalIDNumber",employee.person.getNationalIdentificationNumber()),segmentNode);
+//		
+//	}
 	
 	public void generateEmployee(Locale loc){
 		//Person person;
@@ -118,6 +138,7 @@ public class TestDataGenerator {
 		org.w3c.dom.Element employeeNode = appendChild(createElement("Employee",""),rootElementParent);
 		generateBiographicalData(employee,employeeNode);
 		generateAddress(employee,employeeNode);
+		generateDependent(employee,employeeNode);
 		//System.out.println(person.getAddress());
 	}
 	

@@ -33,3 +33,7 @@ data:
   country: ['Canada', 'USA', 'Poland']
 
   language: 'EN'
+  
+  nationalIdTypes: [Electronic, Paper]
+  
+  relationships: [Parent, Spouse]

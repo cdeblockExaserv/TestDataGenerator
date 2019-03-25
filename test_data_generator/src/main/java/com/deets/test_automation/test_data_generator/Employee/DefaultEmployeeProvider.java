@@ -7,6 +7,7 @@ import javax.inject.Inject;
 
 import com.deets.test_automation.test_data_generator.Globals;
 import com.deets.test_automation.test_data_generator.Fairy.Fairy;
+import com.deets.test_automation.test_data_generator.NationalInfo.NationalInfo;
 //import com.devskiller.jfairy.Fairy;
 import com.devskiller.jfairy.data.DataMaster;
 import com.devskiller.jfairy.producer.BaseProducer;
@@ -27,22 +28,26 @@ public class DefaultEmployeeProvider implements EmployeeProvider{
 	protected LocalDate maritalStatusSince;
 	protected String loc;
 	protected Person person;
+	protected NationalInfo nationalInfo;
+	protected Dependent dependent;
 	
 	protected final BaseProducer baseProducer;
 	protected final DataMaster dataMaster;
 	protected final DateProducer dateProducer;
+	protected final DependentProvider dependentProvider;
 	
 	private ArrayList<String> numbers = new ArrayList<String>();
 
 	@Inject
 	public DefaultEmployeeProvider(BaseProducer baseProducer, DataMaster dataMaster,
-			DateProducer dateProducer,
+			DateProducer dateProducer, DependentProvider dependentProvider,
 			@Assisted EmployeeProperties.EmployeeProperty... employeeProperties) {
 		
 		this.baseProducer = baseProducer;
 		//this.person = Fairy.builder().withFilePrefix(loc).build().person();
 		this.dataMaster = dataMaster;
 		this.dateProducer = dateProducer;
+		this.dependentProvider = dependentProvider;
 		
 		for (EmployeeProperties.EmployeeProperty employeeProperty : employeeProperties) {
 			employeeProperty.apply(this, baseProducer);
@@ -65,12 +70,13 @@ public class DefaultEmployeeProvider implements EmployeeProvider{
 		generatePreferedName();
 		generateBirthName();
 		generateMaritalStatusSince();
+		generateDependent();
 		
 		return new Employee(/*person.getFirstName(), person.getMiddleName(), person.getLastName(), person.getAddress(), person.getEmail(),
 				person.getUsername(), person.getPassword(), person.getSex(), person.getTelephoneNumber(), person.getDateOfBirth(), 
 				person.getAge(), person.getNationalIdentityCardNumber(), person.getNationalIdentificationNumber(), person.getPassportNumber(),
 				person.getCompany(), person.getCompanyEmail(), person.getNationality(), */employeeID, suffix, maritalStatus, nativePreferedLanguage, displayName, preferedName,
-				birthName, prefix, maritalStatusSince, person);
+				birthName, prefix, maritalStatusSince, person, nationalInfo, dependent);
 	}
 	
 	public void generateEmployeeID() {
@@ -140,6 +146,12 @@ public class DefaultEmployeeProvider implements EmployeeProvider{
 			maritalStatusSince = dateProducer.randomDateBetweenTwoDates(person.getDateOfBirth().plusYears(18), LocalDate.now());
 		}
 	}
+	public void generateDependent() {
+		if (dependent != null) {
+			return;
+		}
+		dependent = dependentProvider.get();
+	}
 	public void setEmployeeID(String employeeID) {
 		// TODO Auto-generated method stub
 		this.employeeID = employeeID;
@@ -175,6 +187,15 @@ public class DefaultEmployeeProvider implements EmployeeProvider{
 	public void setMaritalStatusSince(LocalDate maritalStatusSince) {
 		// TODO Auto-generated method stub
 		this.maritalStatusSince = maritalStatusSince;
+	}
+	public void setNationalInfo(NationalInfo nationalInfo) {
+		// TODO Auto-generated method stub
+		this.nationalInfo = nationalInfo;
+	}
+
+	public void setDependent(Dependent dependent) {
+		// TODO Auto-generated method stub
+		this.dependent = dependent;
 	}
 
 }

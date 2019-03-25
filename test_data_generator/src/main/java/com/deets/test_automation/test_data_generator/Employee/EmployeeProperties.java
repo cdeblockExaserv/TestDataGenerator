@@ -96,6 +96,13 @@ public class EmployeeProperties {
 		};
 	}
 	
-
+	public static EmployeeProperty withDependent(final Dependent dependent) {
+		return new EmployeeProperty() {
+			@Override
+			public void apply(EmployeeProvider employeeProvider, BaseProducer baseProducer) {
+				employeeProvider.setDependent(dependent);
+			}
+		};
+	}
 	
 }

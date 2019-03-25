@@ -1,5 +1,7 @@
-package com.deets.test_automation.test_data_generator.Fairy;
+package com.deets.test_automation.test_data_generator.Locale;
 
+import com.deets.test_automation.test_data_generator.Employee.DependentProvider;
+import com.deets.test_automation.test_data_generator.Fairy.FairyModule;
 import com.devskiller.jfairy.data.DataMaster;
 import com.devskiller.jfairy.producer.RandomGenerator;
 import com.devskiller.jfairy.producer.VATIdentificationNumberProvider;
@@ -31,6 +33,7 @@ public class EnFairyModule extends FairyModule {
 		bind(VATIdentificationNumberProvider.class).to(EnVATIdentificationNumberProvider.class);
 		bind(AddressProvider.class).to(EnAddressProvider.class);
 		bind(PassportNumberProvider.class).to(EnPassportNumberProvider.class);
+		bind(DependentProvider.class).to(EnDependentProvider.class);
 	}
 
 }

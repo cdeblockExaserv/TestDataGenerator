@@ -9,6 +9,8 @@ import com.google.inject.Provider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.deets.test_automation.test_data_generator.Locale.EnFairyModule;
+import com.deets.test_automation.test_data_generator.Locale.FrFairyModule;
 import com.devskiller.jfairy.FairyModule;
 //import com.devskiller.jfairy.DeFairyModule;
 //import com.devskiller.jfairy.EnFairyModule;

@@ -2,6 +2,7 @@ package com.deets.test_automation.test_data_generator.Employee;
 
 import java.time.LocalDate;
 
+import com.deets.test_automation.test_data_generator.NationalInfo.NationalInfo;
 import com.devskiller.jfairy.producer.person.Person;
 
 public class Employee /*extends Person*/{
@@ -13,16 +14,18 @@ public class Employee /*extends Person*/{
 	
 	public Person person;
 	
-	private String employeeID;
-	private String suffix;
-	private String maritalStatus;
-	private String nativePreferedLanguage;
-	private String displayName;
-	private String preferedName;
-	private String birthName;
-	private String prefix;
-	private LocalDate maritalStatusSince;
-	private String loc;
+	private final String employeeID;
+	private final String suffix;
+	private final String maritalStatus;
+	private final String nativePreferedLanguage;
+	private final String displayName;
+	private final String preferedName;
+	private final String birthName;
+	private final String prefix;
+	private final LocalDate maritalStatusSince;
+	private final String loc;
+	private final NationalInfo nationalInfo;
+	private final Dependent dependent;
 
 	
 	
@@ -31,7 +34,7 @@ public class Employee /*extends Person*/{
             String nationalIdentityCardNumber, String nationalIdentificationNumber, String passportNumber,
             Company company, String companyEmail, Country nationality, */String employeeID, String suffix, String maritalStatus,
 			String nativePreferedLanguage, String displayName, String preferedName, String birthName, String prefix,
-			LocalDate maritalStatusSince, Person person) {
+			LocalDate maritalStatusSince, Person person, NationalInfo nationalInfo, Dependent dependent) {
 //		super(firstName, middleName, lastName, address, email, username,
 //	              password, sex, telephoneNumber, dateOfBirth, age,
 //	              nationalIdentityCardNumber, nationalIdentificationNumber, passportNumber,
@@ -49,9 +52,10 @@ public class Employee /*extends Person*/{
 		this.prefix = prefix;
 		this.maritalStatusSince = maritalStatusSince;
 		this.person = person;
+		this.nationalInfo = nationalInfo;
+		this.dependent = dependent;
 		
 	}
-	
 
 	public Person getPerson() {
 		return person;
@@ -97,8 +101,12 @@ public class Employee /*extends Person*/{
 		return loc;
 	}
 	
-	public void setLoc(String loc) {
-		this.loc = loc;
+	public NationalInfo getNationalinfo() {
+		return nationalInfo;
+	}
+
+	public Dependent getDependent() {
+		return dependent;
 	}
 	
 }

@@ -27,6 +27,7 @@ public interface EmployeeProvider extends Provider<Employee>{
 	void generateBirthName();
 	void generatePrefix();
 	void generateMaritalStatusSince();
+	void generateDependent();
 	
 	public void setEmployeeID(String employeeID);
 	public void setSuffix(String suffix);
@@ -37,4 +38,5 @@ public interface EmployeeProvider extends Provider<Employee>{
 	public void setBirthName(String birthName);
 	public void setPrefix(String prefix);
 	public void setMaritalStatusSince(LocalDate maritalStatusSince);
+	public void setDependent(Dependent dependent);
 }
