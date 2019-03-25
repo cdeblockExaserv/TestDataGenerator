@@ -1,7 +1,7 @@
 package com.deets.test_automation.test_data_generator.Fairy;
 
+import com.deets.test_automation.test_data_generator.Dependent.DependentProvider;
 import com.deets.test_automation.test_data_generator.Employee.DefaultEmployeeProvider;
-import com.deets.test_automation.test_data_generator.Employee.DependentProvider;
 import com.deets.test_automation.test_data_generator.Employee.EmployeeFactory;
 import com.deets.test_automation.test_data_generator.Employee.EmployeeProvider;
 import com.devskiller.jfairy.data.DataMaster;

@@ -2,6 +2,7 @@ package com.deets.test_automation.test_data_generator.Employee;
 
 import java.time.LocalDate;
 
+import com.deets.test_automation.test_data_generator.Dependent.Dependent;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.inject.Provider;
 

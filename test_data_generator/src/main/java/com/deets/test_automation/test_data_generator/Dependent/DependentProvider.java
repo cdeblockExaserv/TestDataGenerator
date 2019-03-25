@@ -1,4 +1,4 @@
-package com.deets.test_automation.test_data_generator.Employee;
+package com.deets.test_automation.test_data_generator.Dependent;
 
 import com.google.inject.Provider;
 

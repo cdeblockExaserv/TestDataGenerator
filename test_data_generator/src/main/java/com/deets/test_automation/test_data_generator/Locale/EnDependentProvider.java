@@ -1,6 +1,6 @@
 package com.deets.test_automation.test_data_generator.Locale;
 
-import com.deets.test_automation.test_data_generator.Employee.AbstractDependentProvider;
+import com.deets.test_automation.test_data_generator.Dependent.AbstractDependentProvider;
 import com.devskiller.jfairy.data.DataMaster;
 import com.devskiller.jfairy.producer.BaseProducer;
 import com.devskiller.jfairy.producer.DateProducer;

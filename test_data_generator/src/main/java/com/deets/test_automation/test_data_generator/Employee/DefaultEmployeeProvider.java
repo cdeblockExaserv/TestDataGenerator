@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import javax.inject.Inject;
 
 import com.deets.test_automation.test_data_generator.Globals;
+import com.deets.test_automation.test_data_generator.Dependent.Dependent;
+import com.deets.test_automation.test_data_generator.Dependent.DependentProvider;
 import com.deets.test_automation.test_data_generator.Fairy.Fairy;
 import com.deets.test_automation.test_data_generator.NationalInfo.NationalInfo;
 //import com.devskiller.jfairy.Fairy;
