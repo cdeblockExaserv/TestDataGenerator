@@ -11,15 +11,24 @@ public interface EmployeeProvider extends Provider<Employee>{
 	@VisibleForTesting
 	String SUFFIX = "suffixes";
 	@VisibleForTesting
+	String FIRST_NAME = "firstNames";
+	@VisibleForTesting
 	String MARITAL_STATUS = "maritalStates";
 	@VisibleForTesting
 	String NATIVE_PREFERED_LANGUAGE = "nativePreferedLanguages";
 	@VisibleForTesting
 	String PREFIX = "prefixes";
+	@VisibleForTesting
+	String EMAIL_TYPE = "emailTypes";
+	@VisibleForTesting
+	String PERSONAL_EMAIL = "personalEmails";
+	@VisibleForTesting
+	String NATIONAL_ID_TYPE = "nationalIdTypes";
+	@VisibleForTesting
+	String COUNTRY = "country";
 	
 	Employee get();
 	
-	void generateEmployeeID();
 	void generateSuffix();
 	void generateMaritalStatus();
 	void generateNativePreferedLanguage();
@@ -29,8 +38,8 @@ public interface EmployeeProvider extends Provider<Employee>{
 	void generatePrefix();
 	void generateMaritalStatusSince();
 	void generateDependent();
+	void generateEmail();
 	
-	public void setEmployeeID(String employeeID);
 	public void setSuffix(String suffix);
 	public void setMaritalStatus(String maritalStatus);
 	public void setNativePreferedLanguage(String nativePreferedLanguage);
@@ -40,4 +49,7 @@ public interface EmployeeProvider extends Provider<Employee>{
 	public void setPrefix(String prefix);
 	public void setMaritalStatusSince(LocalDate maritalStatusSince);
 	public void setDependent(Dependent dependent);
+	public void setEmailType(String emailType);
+	public void setEmailAddress(String emailAddress);
+	public void setEmailIsPrimary(boolean isPrimary);
 }

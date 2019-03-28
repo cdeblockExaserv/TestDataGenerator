@@ -8,13 +8,21 @@ import javax.inject.Inject;
 import com.deets.test_automation.test_data_generator.Globals;
 import com.deets.test_automation.test_data_generator.Dependent.Dependent;
 import com.deets.test_automation.test_data_generator.Dependent.DependentProvider;
+import com.deets.test_automation.test_data_generator.Employee.Email.BusinessEmail;
+import com.deets.test_automation.test_data_generator.Employee.Email.PersonalEmail;
+import com.deets.test_automation.test_data_generator.Employee.NationalInfo.NationalInfo;
+//import com.deets.test_automation.test_data_generator.Email.EmailFactory;
+//import com.deets.test_automation.test_data_generator.Email.EmailProperties;
+//import com.deets.test_automation.test_data_generator.Email.EmailProvider;
 import com.deets.test_automation.test_data_generator.Fairy.Fairy;
-import com.deets.test_automation.test_data_generator.NationalInfo.NationalInfo;
 //import com.devskiller.jfairy.Fairy;
 import com.devskiller.jfairy.data.DataMaster;
 import com.devskiller.jfairy.producer.BaseProducer;
 import com.devskiller.jfairy.producer.DateProducer;
 import com.devskiller.jfairy.producer.person.Person;
+import com.devskiller.jfairy.producer.util.TextUtils;
+import static org.apache.commons.lang3.StringUtils.lowerCase;
+
 import com.google.inject.assistedinject.Assisted;
 
 public class DefaultEmployeeProvider implements EmployeeProvider{
@@ -32,6 +40,8 @@ public class DefaultEmployeeProvider implements EmployeeProvider{
 	protected Person person;
 	protected NationalInfo nationalInfo;
 	protected Dependent dependent;
+	protected PersonalEmail email;
+	protected BusinessEmail businessEmail;
 	
 	protected final BaseProducer baseProducer;
 	protected final DataMaster dataMaster;
@@ -63,7 +73,6 @@ public class DefaultEmployeeProvider implements EmployeeProvider{
 	public Employee get() {
 		this.person = Fairy.builder().withFilePrefix(Globals.LOC).build().person();
 		
-		generateEmployeeID();
 		generatePrefix();
 		generateSuffix();
 		generateMaritalStatus();
@@ -73,24 +82,12 @@ public class DefaultEmployeeProvider implements EmployeeProvider{
 		generateBirthName();
 		generateMaritalStatusSince();
 		generateDependent();
-		
-		return new Employee(/*person.getFirstName(), person.getMiddleName(), person.getLastName(), person.getAddress(), person.getEmail(),
-				person.getUsername(), person.getPassword(), person.getSex(), person.getTelephoneNumber(), person.getDateOfBirth(), 
-				person.getAge(), person.getNationalIdentityCardNumber(), person.getNationalIdentificationNumber(), person.getPassportNumber(),
-				person.getCompany(), person.getCompanyEmail(), person.getNationality(), */employeeID, suffix, maritalStatus, nativePreferedLanguage, displayName, preferedName,
-				birthName, prefix, maritalStatusSince, person, nationalInfo, dependent);
+		generateEmail();
+		generateNationalInfo(); 
+		return new Employee(suffix, maritalStatus, nativePreferedLanguage, displayName, preferedName,
+				birthName, prefix, maritalStatusSince, person, nationalInfo, dependent, email, businessEmail);
 	}
 	
-	public void generateEmployeeID() {
-		// TODO Auto-generated method stub
-		if (employeeID != null) { return; }
-		
-		employeeID = baseProducer.randomElement(numbers);
-		// NOTE: Amount of numbers? Sequence? incremental?
-		for (int i = 0; i < 4; i++) {
-			employeeID += baseProducer.randomElement(numbers);
-		}
-	}
 	public void generateSuffix() {
 		// TODO Auto-generated method stub
 		if (suffix != null) { return; }
@@ -122,7 +119,12 @@ public class DefaultEmployeeProvider implements EmployeeProvider{
 	}
 	public void generatePreferedName() {
 		// TODO Auto-generated method stub
-		// What does this have to be?
+		// New firstname -> true/false
+		if (preferedName != null ) {
+			return;
+		}
+		
+		preferedName = baseProducer.trueOrFalse() ? dataMaster.getValuesOfType(FIRST_NAME, person.getSex().name(), String.class) : "";
 	}
 	public void generateBirthName() {
 		// TODO Auto-generated method stub
@@ -154,10 +156,45 @@ public class DefaultEmployeeProvider implements EmployeeProvider{
 		}
 		dependent = dependentProvider.get();
 	}
-	public void setEmployeeID(String employeeID) {
-		// TODO Auto-generated method stub
-		this.employeeID = employeeID;
+	public void generateEmail() {
+		String emailAddress;
+		boolean bool;
+		if (email != null) {
+			return;
+		}
+		//Check if employee has businessEmail or not
+//		if (bool = baseProducer.trueOrFalse()) {
+//			emailAddress = TextUtils.stripAccents(lowerCase(person.getFirstName() + '.' + person.getLastName() + 
+//													'@' + /*job.getCompany()*/ "exaserv.com")).replaceAll(" ", "");
+//			bool = true;
+//			businessEmail = new BusinessEmail(emailAddress, bool);
+//			//If there is a business mail, check there's also a personal mail
+//			if (baseProducer.trueOrFalse()) {
+//				emailAddress = TextUtils.stripAccents(lowerCase(person.getFirstName() + '.' + person.getLastName() +
+//														'@' + dataMaster.getRandomValue(PERSONAL_EMAIL))).replaceAll(" ", "");
+//				bool = false;
+//				email = new PersonalEmail(emailAddress, bool);
+//			} 
+//		//If there's no business mail, create a personal mail 
+//		} else {
+			emailAddress = TextUtils.stripAccents(lowerCase(person.getFirstName() + '.' + person.getLastName() +
+													'@' + dataMaster.getRandomValue(PERSONAL_EMAIL))).replaceAll(" ", "");
+			bool = true;
+			email = new PersonalEmail(emailAddress, bool);
+//		}
+		
 	}
+	
+	public void generateNationalInfo() {
+		if (nationalInfo != null) {
+			return;
+		}
+		String type = dataMaster.getRandomValue(NATIONAL_ID_TYPE);
+		boolean bool = true;
+		String country = dataMaster.getRandomValue(COUNTRY);
+		nationalInfo = new NationalInfo(country, type, bool);
+	}
+
 	public void setSuffix(String suffix) {
 		// TODO Auto-generated method stub
 		this.suffix = suffix;
@@ -194,10 +231,18 @@ public class DefaultEmployeeProvider implements EmployeeProvider{
 		// TODO Auto-generated method stub
 		this.nationalInfo = nationalInfo;
 	}
-
 	public void setDependent(Dependent dependent) {
 		// TODO Auto-generated method stub
 		this.dependent = dependent;
+	}
+	public void setEmailType(String emailType) {
+		this.email.setEmailType(emailType);
+	}
+	public void setEmailAddress(String emailAddress) {
+		this.email.setEmailAddress(emailAddress);
+	}
+	public void setEmailIsPrimary(boolean isPrimary) {
+		this.email.setPrimary(isPrimary);
 	}
 
 }

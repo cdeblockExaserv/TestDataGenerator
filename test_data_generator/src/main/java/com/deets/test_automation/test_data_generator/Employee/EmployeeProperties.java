@@ -16,15 +16,6 @@ public class EmployeeProperties {
 
 	}
 	
-	public static EmployeeProperty employeeID(final String employeeID) {
-		return new EmployeeProperty() {
-			@Override
-			public void apply(EmployeeProvider employee, BaseProducer baseProducer) {
-				employee.setEmployeeID(employeeID);
-			}
-		};
-	}
-	
 	public static EmployeeProperty suffix(final String suffix) {
 		return new EmployeeProperty() {
 			@Override
@@ -105,5 +96,5 @@ public class EmployeeProperties {
 			}
 		};
 	}
-	
+
 }

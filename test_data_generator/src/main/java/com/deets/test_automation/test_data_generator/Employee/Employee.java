@@ -3,7 +3,9 @@ package com.deets.test_automation.test_data_generator.Employee;
 import java.time.LocalDate;
 
 import com.deets.test_automation.test_data_generator.Dependent.Dependent;
-import com.deets.test_automation.test_data_generator.NationalInfo.NationalInfo;
+import com.deets.test_automation.test_data_generator.Employee.Email.BusinessEmail;
+import com.deets.test_automation.test_data_generator.Employee.Email.PersonalEmail;
+import com.deets.test_automation.test_data_generator.Employee.NationalInfo.NationalInfo;
 import com.devskiller.jfairy.producer.person.Person;
 
 public class Employee /*extends Person*/{
@@ -15,7 +17,8 @@ public class Employee /*extends Person*/{
 	
 	public Person person;
 	
-	private final String employeeID;
+	//TODO: incremental & unique
+	private static Integer employeeID = 900000;
 	private final String suffix;
 	private final String maritalStatus;
 	private final String nativePreferedLanguage;
@@ -27,15 +30,18 @@ public class Employee /*extends Person*/{
 	private final String loc;
 	private final NationalInfo nationalInfo;
 	private final Dependent dependent;
+	private final PersonalEmail email;
+	private final BusinessEmail businessEmail;
 
 	
 	
 	public Employee(/*String firstName, String middleName, String lastName, Address address, String email, String username,
             String password, Sex sex, String telephoneNumber, LocalDate dateOfBirth, Integer age,
             String nationalIdentityCardNumber, String nationalIdentificationNumber, String passportNumber,
-            Company company, String companyEmail, Country nationality, */String employeeID, String suffix, String maritalStatus,
+            Company company, String companyEmail, Country nationality, */String suffix, String maritalStatus,
 			String nativePreferedLanguage, String displayName, String preferedName, String birthName, String prefix,
-			LocalDate maritalStatusSince, Person person, NationalInfo nationalInfo, Dependent dependent) {
+			LocalDate maritalStatusSince, Person person, NationalInfo nationalInfo, Dependent dependent, PersonalEmail email,
+			BusinessEmail businessEmail) {
 //		super(firstName, middleName, lastName, address, email, username,
 //	              password, sex, telephoneNumber, dateOfBirth, age,
 //	              nationalIdentityCardNumber, nationalIdentificationNumber, passportNumber,
@@ -43,7 +49,7 @@ public class Employee /*extends Person*/{
 		this.loc = "us";
 		//this.person = Fairy.builder().withFilePrefix(loc).build().person();
 		
-		this.employeeID = employeeID;
+		employeeID++;
 		this.suffix = suffix;
 		this.maritalStatus = maritalStatus;
 		this.nativePreferedLanguage = nativePreferedLanguage;
@@ -55,6 +61,8 @@ public class Employee /*extends Person*/{
 		this.person = person;
 		this.nationalInfo = nationalInfo;
 		this.dependent = dependent;
+		this.email = email;
+		this.businessEmail = businessEmail;
 		
 	}
 
@@ -62,7 +70,7 @@ public class Employee /*extends Person*/{
 		return person;
 	}
 
-	public String getEmployeeID() {
+	public Integer getEmployeeID() {
 		return employeeID;
 	}
 
@@ -109,5 +117,15 @@ public class Employee /*extends Person*/{
 	public Dependent getDependent() {
 		return dependent;
 	}
+	
+	public PersonalEmail getEmail() {
+		return email;
+	}
+	
+	public BusinessEmail getBusinessEmail() {
+		return businessEmail;
+	}
+	
+	
 	
 }

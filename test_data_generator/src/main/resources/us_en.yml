@@ -30,10 +30,10 @@ data:
 
   street: [Atkins Avenue, Aster Court, Cove Lane, Ford Street, Highland Place, Herzi Street, Tabor Court, Stillwell Avenue, Summer Place, Washington Walk]
 
-  country: ['Canada', 'USA', 'Poland']
+  country: [USA]
 
   language: 'EN'
   
-  nationalIdTypes: [Electronic, Paper]
+  relationships: [Parent, Spouse, Child]
   
-  relationships: [Parent, Spouse]
+  nationalIdTypes: [Social Security Number]

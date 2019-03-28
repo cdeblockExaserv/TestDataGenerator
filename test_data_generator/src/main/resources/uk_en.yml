@@ -34,3 +34,7 @@ data:
   country: ['UK']
 
   language: 'EN'
+
+  relationships: [Parent, Spouse, Child]
+  
+  nationalIdTypes: [National Insurance Number]

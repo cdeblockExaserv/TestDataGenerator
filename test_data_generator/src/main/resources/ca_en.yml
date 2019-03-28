@@ -33,3 +33,7 @@ data:
   country: ['Canada']
 
   language: 'EN'
+  
+  relationships: [Parent, Spouse, Child]
+  
+  nationalIdTypes: [Social Insurance Number]
