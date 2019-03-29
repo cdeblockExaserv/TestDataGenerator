@@ -10,7 +10,10 @@ import com.deets.test_automation.test_data_generator.Dependent.Dependent;
 import com.deets.test_automation.test_data_generator.Dependent.DependentProvider;
 import com.deets.test_automation.test_data_generator.Employee.Email.BusinessEmail;
 import com.deets.test_automation.test_data_generator.Employee.Email.PersonalEmail;
+import com.deets.test_automation.test_data_generator.Employee.EmergencyContact.EmergencyContact;
 import com.deets.test_automation.test_data_generator.Employee.NationalInfo.NationalInfo;
+import com.deets.test_automation.test_data_generator.Employee.Phone.BusinessPhone;
+import com.deets.test_automation.test_data_generator.Employee.Phone.PersonalPhone;
 //import com.deets.test_automation.test_data_generator.Email.EmailFactory;
 //import com.deets.test_automation.test_data_generator.Email.EmailProperties;
 //import com.deets.test_automation.test_data_generator.Email.EmailProvider;
@@ -42,6 +45,9 @@ public class DefaultEmployeeProvider implements EmployeeProvider{
 	protected Dependent dependent;
 	protected PersonalEmail email;
 	protected BusinessEmail businessEmail;
+	protected PersonalPhone personalPhone;
+	protected BusinessPhone businessPhone;
+	protected EmergencyContact emergencyContact;
 	
 	protected final BaseProducer baseProducer;
 	protected final DataMaster dataMaster;
@@ -84,8 +90,12 @@ public class DefaultEmployeeProvider implements EmployeeProvider{
 		generateDependent();
 		generateEmail();
 		generateNationalInfo(); 
+		generatePersonalPhone();
+		generateEmergencyContact();
+		
 		return new Employee(suffix, maritalStatus, nativePreferedLanguage, displayName, preferedName,
-				birthName, prefix, maritalStatusSince, person, nationalInfo, dependent, email, businessEmail);
+				birthName, prefix, maritalStatusSince, person, nationalInfo, dependent, email, businessEmail,
+				personalPhone, businessPhone, emergencyContact);
 	}
 	
 	public void generateSuffix() {
@@ -195,6 +205,36 @@ public class DefaultEmployeeProvider implements EmployeeProvider{
 		nationalInfo = new NationalInfo(country, type, bool);
 	}
 
+	public void generatePersonalPhone() {
+		if (personalPhone != null) {
+			return;
+		}
+		String country = dataMaster.getRandomValue(COUNTRY_CODE);
+		// Only for business phone in future update
+//		String ext = "";
+//		if (baseProducer.trueOrFalse()) {
+//			for (int i = 0;  i<3; i++) {
+//				Integer r = baseProducer.randomBetween(1, 9);
+//				ext += r.toString();
+//				}
+//		}
+//		String number = country + " " + this.person.getTelephoneNumber().toString();
+//		if (ext != "") number += " Ext. " + ext;
+		
+		String number = country + " " + this.person.getTelephoneNumber().toString();
+		personalPhone = new PersonalPhone(country, number, true);
+	}
+	
+	public void generateEmergencyContact() {
+		if (emergencyContact != null) {
+			return;
+		}
+		Person person = Fairy.builder().withFilePrefix(Globals.LOC).build().person();
+		String rel = dataMaster.getValuesOfType(RELATIONSHIP, "emergency", String.class);
+		String tel = dataMaster.getRandomValue(COUNTRY_CODE) + " " + person.getTelephoneNumber();
+		emergencyContact = new EmergencyContact(person, rel, tel, true);
+	}
+	
 	public void setSuffix(String suffix) {
 		// TODO Auto-generated method stub
 		this.suffix = suffix;
@@ -243,6 +283,9 @@ public class DefaultEmployeeProvider implements EmployeeProvider{
 	}
 	public void setEmailIsPrimary(boolean isPrimary) {
 		this.email.setPrimary(isPrimary);
+	}
+	public void setEmergencyContact(EmergencyContact emergencyContact) {
+		this.emergencyContact = emergencyContact;
 	}
 
 }

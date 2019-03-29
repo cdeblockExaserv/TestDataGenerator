@@ -28,7 +28,7 @@ public abstract class AbstractDependentProvider implements DependentProvider{
 	}
 	
 	public String getRelationship() {
-		return dataMaster.getRandomValue(RELATIONSHIP);
+		return dataMaster.getValuesOfType(RELATIONSHIP, "dependent", String.class);
 	}
 	
 	public Person getPerson() {

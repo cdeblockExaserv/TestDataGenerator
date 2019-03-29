@@ -126,7 +126,17 @@ public class TestDataGenerator {
 		appendChild(createElement("NationalIDType",employee.getNationalinfo().getNationalIDType()),segmentNode);
 		appendChild(createElement("Country",employee.getNationalinfo().getCountry()),segmentNode);
 		appendChild(createElement("NationalIDIsPrimary","true"),segmentNode);
-		
+		// -PersonalPhone
+		appendChild(createElement("CountryCode",employee.getPersonalPhone().getCountryCode()),segmentNode);
+		//appendChild(createElement("Extension",employee.getPersonalPhone().getExtension()),segmentNode); -> businessPhone only
+		appendChild(createElement("PersonalPhoneNumber",employee.getPersonalPhone().getPhoneNumber()),segmentNode);
+		appendChild(createElement("PhoneIsPrimary","true"),segmentNode);
+		// -EmergencyContact
+		appendChild(createElement("EmergencyContactName",employee.person.getFullName()),segmentNode);
+		appendChild(createElement("EmergencyContactRelationship",employee.getEmergencyContact().getRelationship()),segmentNode);
+		appendChild(createElement("EmergencyContactMail",employee.person.getEmail()),segmentNode);
+		appendChild(createElement("EmergencyContactPhone",employee.getEmergencyContact().getTelephone()),segmentNode);
+		appendChild(createElement("EmergencyContactIsPrimary","true"),segmentNode);
 	}
 	
 //	public void generateEmail(Employee employee, org.w3c.dom.Element employeeNode) {
@@ -185,6 +195,15 @@ public class TestDataGenerator {
 //		appendChild(createElement("IsPrimary","true"),segmentNode);
 //		
 //	}
+	
+//	public void generatePersonalPhone(Employee employee,org.w3c.dom.Element employeeNode){
+//	org.w3c.dom.Element segmentNode = appendChild(createElement("PersonalPhone",""),employeeNode);
+//	appendChild(createElement("CountryCode",employee.getPersonalPhone().getCountryCode()),segmentNode);
+//	appendChild(createElement("Extension",employee.getPersonalPhone().getExtension()),segmentNode);
+//	appendChild(createElement("PersonalPhoneNumber",employee.getPersonalPhone().getPhoneNumber()),segmentNode);
+//	appendChild(createElement("PersonalPhoneIsPrimary","true"),segmentNode);
+//	
+//}
 	
 	public void generateEmployee(Locale loc){
 		//Person person;

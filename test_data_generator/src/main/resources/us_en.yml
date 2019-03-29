@@ -34,6 +34,11 @@ data:
 
   language: 'EN'
   
-  relationships: [Parent, Spouse, Child]
+  relationships: {
+     dependent: [Parent, Spouse, Child],
+     emergency: [Parent, Spouse, Other]
+  }
   
   nationalIdTypes: [Social Security Number]
+  
+  phoneCountryCode: ["+1"]

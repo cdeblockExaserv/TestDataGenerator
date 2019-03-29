@@ -3,6 +3,7 @@ package com.deets.test_automation.test_data_generator.Employee;
 import java.time.LocalDate;
 
 import com.deets.test_automation.test_data_generator.Dependent.Dependent;
+import com.deets.test_automation.test_data_generator.Employee.EmergencyContact.EmergencyContact;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.inject.Provider;
 
@@ -26,6 +27,10 @@ public interface EmployeeProvider extends Provider<Employee>{
 	String NATIONAL_ID_TYPE = "nationalIdTypes";
 	@VisibleForTesting
 	String COUNTRY = "country";
+	@VisibleForTesting
+	String COUNTRY_CODE = "phoneCountryCode";
+	@VisibleForTesting
+	String RELATIONSHIP = "relationships";
 	
 	Employee get();
 	
@@ -39,6 +44,8 @@ public interface EmployeeProvider extends Provider<Employee>{
 	void generateMaritalStatusSince();
 	void generateDependent();
 	void generateEmail();
+	void generatePersonalPhone();
+	void generateEmergencyContact();
 	
 	public void setSuffix(String suffix);
 	public void setMaritalStatus(String maritalStatus);

@@ -5,7 +5,10 @@ import java.time.LocalDate;
 import com.deets.test_automation.test_data_generator.Dependent.Dependent;
 import com.deets.test_automation.test_data_generator.Employee.Email.BusinessEmail;
 import com.deets.test_automation.test_data_generator.Employee.Email.PersonalEmail;
+import com.deets.test_automation.test_data_generator.Employee.EmergencyContact.EmergencyContact;
 import com.deets.test_automation.test_data_generator.Employee.NationalInfo.NationalInfo;
+import com.deets.test_automation.test_data_generator.Employee.Phone.BusinessPhone;
+import com.deets.test_automation.test_data_generator.Employee.Phone.PersonalPhone;
 import com.devskiller.jfairy.producer.person.Person;
 
 public class Employee /*extends Person*/{
@@ -32,7 +35,9 @@ public class Employee /*extends Person*/{
 	private final Dependent dependent;
 	private final PersonalEmail email;
 	private final BusinessEmail businessEmail;
-
+	private final PersonalPhone personalPhone;
+	private final BusinessPhone businessPhone;
+	private final EmergencyContact emergencyContact;
 	
 	
 	public Employee(/*String firstName, String middleName, String lastName, Address address, String email, String username,
@@ -41,7 +46,7 @@ public class Employee /*extends Person*/{
             Company company, String companyEmail, Country nationality, */String suffix, String maritalStatus,
 			String nativePreferedLanguage, String displayName, String preferedName, String birthName, String prefix,
 			LocalDate maritalStatusSince, Person person, NationalInfo nationalInfo, Dependent dependent, PersonalEmail email,
-			BusinessEmail businessEmail) {
+			BusinessEmail businessEmail, PersonalPhone personalPhone, BusinessPhone businessPhone, EmergencyContact emergencyContact) {
 //		super(firstName, middleName, lastName, address, email, username,
 //	              password, sex, telephoneNumber, dateOfBirth, age,
 //	              nationalIdentityCardNumber, nationalIdentificationNumber, passportNumber,
@@ -63,6 +68,9 @@ public class Employee /*extends Person*/{
 		this.dependent = dependent;
 		this.email = email;
 		this.businessEmail = businessEmail;
+		this.businessPhone = businessPhone;
+		this.personalPhone = personalPhone;
+		this.emergencyContact = emergencyContact;
 		
 	}
 
@@ -125,7 +133,17 @@ public class Employee /*extends Person*/{
 	public BusinessEmail getBusinessEmail() {
 		return businessEmail;
 	}
-	
-	
+
+	public PersonalPhone getPersonalPhone() {
+		return personalPhone;
+	}
+
+	public BusinessPhone getBusinessPhone() {
+		return businessPhone;
+	}
+
+	public EmergencyContact getEmergencyContact() {
+		return emergencyContact;
+	}
 	
 }
