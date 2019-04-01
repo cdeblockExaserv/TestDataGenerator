@@ -109,13 +109,16 @@ public class TestDataGenerator {
 		appendChild(createElement("EmailType",employee.getEmail().getEmailType()),segmentNode);
 		appendChild(createElement("EmailIsPrimary", "true"), segmentNode);
 		// -Address
-		appendChild(createElement("Line1",employee.person.getAddress().getAddressLine1()),segmentNode);
-		appendChild(createElement("Line2",employee.person.getAddress().getAddressLine2()),segmentNode);
-		appendChild(createElement("ApartmentNumber",employee.person.getAddress().getApartmentNumber()),segmentNode);
-		appendChild(createElement("City",employee.person.getAddress().getCity()),segmentNode);
-		appendChild(createElement("ZipCode",employee.person.getAddress().getPostalCode()),segmentNode);
+		appendChild(createElement("Line1",employee.getAddress().getAddressLine1()),segmentNode);
+		appendChild(createElement("Line2",employee.getAddress().getAddressLine2()),segmentNode);
+		appendChild(createElement("ApartmentNumber",employee.getAddress().getApartmentNumber()),segmentNode);
+		appendChild(createElement("City",employee.getAddress().getCity()),segmentNode);
+		appendChild(createElement("ZipCode",employee.getAddress().getPostalCode()),segmentNode);
+		appendChild(createElement("Country",employee.getAddress().getCountry()),segmentNode);
+		appendChild(createElement("AddressType",employee.getAddress().getAddressType()),segmentNode);
+		appendChild(createElement("State",employee.getAddress().getState()),segmentNode);
 		// -Dependent
-		appendChild(createElement("Date",employee.getDependent().getDate().toString()),segmentNode);
+		//appendChild(createElement("Date",employee.getDependent().getDate().toString()),segmentNode);
 		appendChild(createElement("Relationship",employee.getDependent().getRelationship()),segmentNode);
 		appendChild(createElement("DependentDateOfBirth",employee.getDependent().getPerson().getDateOfBirth().toString()),segmentNode);
 		appendChild(createElement("DependentFirstName",employee.getDependent().getPerson().getFirstName()),segmentNode);
@@ -137,6 +140,7 @@ public class TestDataGenerator {
 		appendChild(createElement("EmergencyContactMail",employee.person.getEmail()),segmentNode);
 		appendChild(createElement("EmergencyContactPhone",employee.getEmergencyContact().getTelephone()),segmentNode);
 		appendChild(createElement("EmergencyContactIsPrimary","true"),segmentNode);
+	
 	}
 	
 //	public void generateEmail(Employee employee, org.w3c.dom.Element employeeNode) {
@@ -260,9 +264,9 @@ public class TestDataGenerator {
 		
 		System.out.println(prompt + " ");
 		System.out.println("1. USA");
-		System.out.println("2. Canada");
-		System.out.println("3. UK");
-		System.out.println("4. France");
+		System.out.println("2. France");
+//		System.out.println("3. UK");
+//		System.out.println("4. Canada");
 		try{
 			BufferedReader is = new BufferedReader(new InputStreamReader(System.in));
 			inputLine = is.readLine();
@@ -276,14 +280,14 @@ public class TestDataGenerator {
 			loc = Locale.US;
 			break;
 		case 2:
-			loc = Locale.CANADA_FRENCH;
-			break;
-		case 3:
-			loc = Locale.UK;
-			break;
-		case 4:
 			loc = Locale.FRANCE;
 			break;
+//		case 3:
+//			loc = Locale.UK;
+//			break;
+//		case 4:
+//			loc = Locale.CANADA_FRENCH;
+//			break;
 		default:
 			loc = Locale.US;
 			break;

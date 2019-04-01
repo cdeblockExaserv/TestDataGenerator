@@ -3,6 +3,7 @@ package com.deets.test_automation.test_data_generator.Employee;
 import java.time.LocalDate;
 
 import com.deets.test_automation.test_data_generator.Dependent.Dependent;
+import com.deets.test_automation.test_data_generator.Employee.Address.Address;
 import com.deets.test_automation.test_data_generator.Employee.Email.BusinessEmail;
 import com.deets.test_automation.test_data_generator.Employee.Email.PersonalEmail;
 import com.deets.test_automation.test_data_generator.Employee.EmergencyContact.EmergencyContact;
@@ -22,22 +23,23 @@ public class Employee /*extends Person*/{
 	
 	//TODO: incremental & unique
 	private static Integer employeeID = 900000;
-	private final String suffix;
-	private final String maritalStatus;
-	private final String nativePreferedLanguage;
-	private final String displayName;
-	private final String preferedName;
-	private final String birthName;
-	private final String prefix;
-	private final LocalDate maritalStatusSince;
-	private final String loc;
-	private final NationalInfo nationalInfo;
-	private final Dependent dependent;
-	private final PersonalEmail email;
-	private final BusinessEmail businessEmail;
-	private final PersonalPhone personalPhone;
-	private final BusinessPhone businessPhone;
-	private final EmergencyContact emergencyContact;
+	private String suffix;
+	private String maritalStatus;
+	private String nativePreferedLanguage;
+	private String displayName;
+	private String preferedName;
+	private String birthName;
+	private String prefix;
+	private LocalDate maritalStatusSince;
+	private String loc;
+	private NationalInfo nationalInfo;
+	private Dependent dependent;
+	private PersonalEmail email;
+	private BusinessEmail businessEmail;
+	private PersonalPhone personalPhone;
+	private BusinessPhone businessPhone;
+	private EmergencyContact emergencyContact;
+	private Address address;
 	
 	
 	public Employee(/*String firstName, String middleName, String lastName, Address address, String email, String username,
@@ -46,7 +48,8 @@ public class Employee /*extends Person*/{
             Company company, String companyEmail, Country nationality, */String suffix, String maritalStatus,
 			String nativePreferedLanguage, String displayName, String preferedName, String birthName, String prefix,
 			LocalDate maritalStatusSince, Person person, NationalInfo nationalInfo, Dependent dependent, PersonalEmail email,
-			BusinessEmail businessEmail, PersonalPhone personalPhone, BusinessPhone businessPhone, EmergencyContact emergencyContact) {
+			BusinessEmail businessEmail, PersonalPhone personalPhone, BusinessPhone businessPhone, EmergencyContact emergencyContact,
+			Address address) {
 //		super(firstName, middleName, lastName, address, email, username,
 //	              password, sex, telephoneNumber, dateOfBirth, age,
 //	              nationalIdentityCardNumber, nationalIdentificationNumber, passportNumber,
@@ -71,7 +74,24 @@ public class Employee /*extends Person*/{
 		this.businessPhone = businessPhone;
 		this.personalPhone = personalPhone;
 		this.emergencyContact = emergencyContact;
+		this.address = address;
 		
+	}
+
+	public NationalInfo getNationalInfo() {
+		return nationalInfo;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setPerson(Person person) {
+		this.person = person;
+	}
+
+	public static void setEmployeeID(Integer employeeID) {
+		Employee.employeeID = employeeID;
 	}
 
 	public Person getPerson() {
@@ -144,6 +164,74 @@ public class Employee /*extends Person*/{
 
 	public EmergencyContact getEmergencyContact() {
 		return emergencyContact;
+	}
+
+	public void setSuffix(String suffix) {
+		this.suffix = suffix;
+	}
+
+	public void setMaritalStatus(String maritalStatus) {
+		this.maritalStatus = maritalStatus;
+	}
+
+	public void setNativePreferedLanguage(String nativePreferedLanguage) {
+		this.nativePreferedLanguage = nativePreferedLanguage;
+	}
+
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
+	}
+
+	public void setPreferedName(String preferedName) {
+		this.preferedName = preferedName;
+	}
+
+	public void setBirthName(String birthName) {
+		this.birthName = birthName;
+	}
+
+	public void setPrefix(String prefix) {
+		this.prefix = prefix;
+	}
+
+	public void setMaritalStatusSince(LocalDate maritalStatusSince) {
+		this.maritalStatusSince = maritalStatusSince;
+	}
+
+	public void setLoc(String loc) {
+		this.loc = loc;
+	}
+
+	public void setNationalInfo(NationalInfo nationalInfo) {
+		this.nationalInfo = nationalInfo;
+	}
+
+	public void setDependent(Dependent dependent) {
+		this.dependent = dependent;
+	}
+
+	public void setEmail(PersonalEmail email) {
+		this.email = email;
+	}
+
+	public void setBusinessEmail(BusinessEmail businessEmail) {
+		this.businessEmail = businessEmail;
+	}
+
+	public void setPersonalPhone(PersonalPhone personalPhone) {
+		this.personalPhone = personalPhone;
+	}
+
+	public void setBusinessPhone(BusinessPhone businessPhone) {
+		this.businessPhone = businessPhone;
+	}
+
+	public void setEmergencyContact(EmergencyContact emergencyContact) {
+		this.emergencyContact = emergencyContact;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 	
 }

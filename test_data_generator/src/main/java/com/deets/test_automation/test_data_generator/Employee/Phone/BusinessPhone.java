@@ -11,4 +11,14 @@ public class BusinessPhone extends Phone{
 		this.extension = extension;
 	}
 
+	public String getExtension() {
+		return extension;
+	}
+
+	public void setExtension(String extension) {
+		this.extension = extension;
+	}
+	
+	
+
 }

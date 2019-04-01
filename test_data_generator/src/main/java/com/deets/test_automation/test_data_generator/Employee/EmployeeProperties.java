@@ -3,7 +3,6 @@ package com.deets.test_automation.test_data_generator.Employee;
 import java.time.LocalDate;
 
 import com.deets.test_automation.test_data_generator.Dependent.Dependent;
-import com.deets.test_automation.test_data_generator.Employee.EmergencyContact.EmergencyContact;
 import com.devskiller.jfairy.producer.BaseProducer;
 
 public class EmployeeProperties {

@@ -8,6 +8,8 @@ import javax.inject.Inject;
 import com.deets.test_automation.test_data_generator.Globals;
 import com.deets.test_automation.test_data_generator.Dependent.Dependent;
 import com.deets.test_automation.test_data_generator.Dependent.DependentProvider;
+import com.deets.test_automation.test_data_generator.Employee.Address.Address;
+import com.deets.test_automation.test_data_generator.Employee.Address.AddressProvider;
 import com.deets.test_automation.test_data_generator.Employee.Email.BusinessEmail;
 import com.deets.test_automation.test_data_generator.Employee.Email.PersonalEmail;
 import com.deets.test_automation.test_data_generator.Employee.EmergencyContact.EmergencyContact;
@@ -28,7 +30,7 @@ import static org.apache.commons.lang3.StringUtils.lowerCase;
 
 import com.google.inject.assistedinject.Assisted;
 
-public class DefaultEmployeeProvider implements EmployeeProvider{
+public class DefaultEmployeeProvider implements EmployeeProvider {
 	
 	protected String employeeID;
 	protected String suffix;
@@ -48,17 +50,20 @@ public class DefaultEmployeeProvider implements EmployeeProvider{
 	protected PersonalPhone personalPhone;
 	protected BusinessPhone businessPhone;
 	protected EmergencyContact emergencyContact;
+	protected Address address;
 	
 	protected final BaseProducer baseProducer;
 	protected final DataMaster dataMaster;
 	protected final DateProducer dateProducer;
 	protected final DependentProvider dependentProvider;
+	protected final AddressProvider addressProvider;
 	
 	private ArrayList<String> numbers = new ArrayList<String>();
 
 	@Inject
 	public DefaultEmployeeProvider(BaseProducer baseProducer, DataMaster dataMaster,
 			DateProducer dateProducer, DependentProvider dependentProvider,
+			AddressProvider addressProvider,
 			@Assisted EmployeeProperties.EmployeeProperty... employeeProperties) {
 		
 		this.baseProducer = baseProducer;
@@ -66,6 +71,7 @@ public class DefaultEmployeeProvider implements EmployeeProvider{
 		this.dataMaster = dataMaster;
 		this.dateProducer = dateProducer;
 		this.dependentProvider = dependentProvider;
+		this.addressProvider = addressProvider;
 		
 		for (EmployeeProperties.EmployeeProperty employeeProperty : employeeProperties) {
 			employeeProperty.apply(this, baseProducer);
@@ -74,6 +80,7 @@ public class DefaultEmployeeProvider implements EmployeeProvider{
 		for (Integer i = 1; i < 10; i++) {
 			numbers.add(i.toString());
 		}
+		
 	}
 	
 	public Employee get() {
@@ -92,10 +99,11 @@ public class DefaultEmployeeProvider implements EmployeeProvider{
 		generateNationalInfo(); 
 		generatePersonalPhone();
 		generateEmergencyContact();
+		generateAddress();
 		
 		return new Employee(suffix, maritalStatus, nativePreferedLanguage, displayName, preferedName,
 				birthName, prefix, maritalStatusSince, person, nationalInfo, dependent, email, businessEmail,
-				personalPhone, businessPhone, emergencyContact);
+				personalPhone, businessPhone, emergencyContact, address);
 	}
 	
 	public void generateSuffix() {
@@ -234,6 +242,12 @@ public class DefaultEmployeeProvider implements EmployeeProvider{
 		String tel = dataMaster.getRandomValue(COUNTRY_CODE) + " " + person.getTelephoneNumber();
 		emergencyContact = new EmergencyContact(person, rel, tel, true);
 	}
+	public void generateAddress() {
+		if (address != null) {
+			return;
+		}
+		address = addressProvider.get();
+	}
 	
 	public void setSuffix(String suffix) {
 		// TODO Auto-generated method stub
@@ -286,6 +300,10 @@ public class DefaultEmployeeProvider implements EmployeeProvider{
 	}
 	public void setEmergencyContact(EmergencyContact emergencyContact) {
 		this.emergencyContact = emergencyContact;
+	}
+	public void setAddress(Address address) {
+		// TODO Auto-generated method stub
+		this.address = address;
 	}
 
 }

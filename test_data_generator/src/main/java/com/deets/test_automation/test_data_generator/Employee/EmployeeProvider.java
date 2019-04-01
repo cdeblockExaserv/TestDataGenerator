@@ -3,7 +3,7 @@ package com.deets.test_automation.test_data_generator.Employee;
 import java.time.LocalDate;
 
 import com.deets.test_automation.test_data_generator.Dependent.Dependent;
-import com.deets.test_automation.test_data_generator.Employee.EmergencyContact.EmergencyContact;
+import com.deets.test_automation.test_data_generator.Employee.Address.Address;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.inject.Provider;
 
@@ -46,6 +46,7 @@ public interface EmployeeProvider extends Provider<Employee>{
 	void generateEmail();
 	void generatePersonalPhone();
 	void generateEmergencyContact();
+	void generateAddress();
 	
 	public void setSuffix(String suffix);
 	public void setMaritalStatus(String maritalStatus);
@@ -56,6 +57,7 @@ public interface EmployeeProvider extends Provider<Employee>{
 	public void setPrefix(String prefix);
 	public void setMaritalStatusSince(LocalDate maritalStatusSince);
 	public void setDependent(Dependent dependent);
+	public void setAddress(Address address);
 	public void setEmailType(String emailType);
 	public void setEmailAddress(String emailAddress);
 	public void setEmailIsPrimary(boolean isPrimary);
