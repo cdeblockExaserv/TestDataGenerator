@@ -7,9 +7,8 @@ import com.devskiller.jfairy.producer.person.Person;
 
 public class EnDependent extends AbstractDependent {
 
-	public EnDependent(LocalDate date, String relationship, Person person) {
-		super(date, relationship, person);
-		// TODO Auto-generated constructor stub
+	public EnDependent(Person person, String relationship, LocalDate date) {
+		super(person, relationship, date);
 	}
 	
 }

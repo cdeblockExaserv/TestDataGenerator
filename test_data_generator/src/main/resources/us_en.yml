@@ -37,8 +37,8 @@ data:
   language: 'EN'
   
   relationships: {
-     dependent: [Parent, Spouse, Child],
-     emergency: [Parent, Spouse, Other]
+     dependent: [Father,Mother,Spouse,Child], 
+     emergency: [Father,Mother,Spouse,Other]
   }
   
   nationalIdTypes: [Social Security Number]
@@ -46,3 +46,44 @@ data:
   phoneCountryCode: ["+1"]
   
   addressType: [Residence, Billing, Other]
+     #-- Job Info {between [] only test data, not complete}
+  positions: [Analyst (700042), Assembly Worker (500300216), Building Manager (700040), Chief Talent Officer (500300201)]
+  
+  companies: [Exaserv, Alist, Beans, Klein, Felics, Adapt, MemorTech, Porta, SuperMemo, Nonos, Vitae, Woods, Quisuc, Quicker, Interdem, Morsem, Datastore, Linger, Buapel, Terson, Gualas, Yrsa, Warst, Erntogra, Robutenia, QuickLink, Furba, Hostes, FlyHigh]
+  
+  businessUnits: [CORP, GCS, PRODS, RETAIL, SALES, SVCS]
+  
+  divisions: [CORP_SVCS, DEV, DIR_SALES, EXEC, BUS_DEV, GCS_APJ, GCS_EMEA, GCS_LATAM, GCS_NA, IT, INSIDE_SALES, MANU, PROF_SVCS, RCENTRAL, RC, RNE, RNW, RSE, RWEST]
+     
+  departments: ['50150016', '50150018', '50000603']
+
+  locations: [1710-0013, 3200-0001, 1710-0015, 3400-0001]
+  
+  costcenters: [3000-2210, 3000-1000, 3000-1100, 3000-1110]
+  
+  jobClassifications: ['50070968', '50012557', '50071001', '50000074']
+     #Min weekly hours 
+  minHours: ['20']
+     #Max weekly hours
+  maxHours: ['48']
+  
+  paygrades: [H-01, H-02, GR-01, GR-02] 
+  
+  fte: ['1', '1.5', '2', '2.5', '3']
+  
+  employeeClasses: [Active, Agency/Temp, Apprentice, Assignee, Consultant, Contractor, Contractors/3rd prty, Employee, Expatriate, Intern, Retiree/Pensioner, Temp/Seasonal, Terminated]
+  
+  shiftCodes: ['1', '2', '3']
+  
+  fslaStatus: [Exempt, No FSLA Required, Nonexempt]
+  
+  eeoJobGroups: [Administrative Managers, Craft Workers, Executives, Finance, Global Services, Hardware Engineers]
+  
+  eeoCategory1: [1.1 Executive or Senior Level Officials and Managers, 1.2 First/ Mid-Level Officials and Managers, 2. Professionals, 3. Technicians]
+  
+  eeoCategory4: [No EEO-4 Reporting, Office/Clerical, Officials and Administrators]
+  
+  eeoCategory5: [Asst. Principals-Nonteaching, Asst. Principals-Teaching, Clerical/Secretarial]
+  
+  eeoCategory6: [Executive/Admin/Managerial, Faculty, No EEO-6 Reporting]
+  

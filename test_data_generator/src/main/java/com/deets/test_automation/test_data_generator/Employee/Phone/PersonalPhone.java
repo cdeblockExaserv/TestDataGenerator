@@ -5,7 +5,6 @@ public class PersonalPhone extends Phone{
 	public PersonalPhone(String countryCode, String phoneNumber,
 			boolean isPrimary) {
 		super("Personal", countryCode, phoneNumber, isPrimary);
-		// TODO Auto-generated constructor stub
 	}
 
 }

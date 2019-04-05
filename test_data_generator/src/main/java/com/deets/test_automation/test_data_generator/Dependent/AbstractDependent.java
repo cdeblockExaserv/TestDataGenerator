@@ -10,7 +10,7 @@ public abstract class AbstractDependent implements Dependent{
 	protected final String relationship;
 	protected final Person person;
 
-	public AbstractDependent(LocalDate date, String relationship, Person person) {
+	public AbstractDependent(Person person, String relationship, LocalDate date) {
 		this.date = date;
 		this.relationship = relationship;
 		this.person = person;
@@ -27,5 +27,6 @@ public abstract class AbstractDependent implements Dependent{
 	public Person getPerson() {
 		return person;
 	}
+
 	
 }

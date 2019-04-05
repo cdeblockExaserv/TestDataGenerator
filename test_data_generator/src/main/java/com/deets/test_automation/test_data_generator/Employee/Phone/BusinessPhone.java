@@ -7,7 +7,6 @@ public class BusinessPhone extends Phone{
 	public BusinessPhone(String countryCode, String phoneNumber,
 			boolean isPrimary, String extension) {
 		super("Business", countryCode, phoneNumber, isPrimary);
-		// TODO Auto-generated constructor stub
 		this.extension = extension;
 	}
 

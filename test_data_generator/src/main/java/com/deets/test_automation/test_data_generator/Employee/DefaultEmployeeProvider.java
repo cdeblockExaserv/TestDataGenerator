@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import javax.inject.Inject;
 
+import com.deets.test_automation.test_data_generator.Dictionary;
 import com.deets.test_automation.test_data_generator.Globals;
 import com.deets.test_automation.test_data_generator.Dependent.Dependent;
 import com.deets.test_automation.test_data_generator.Dependent.DependentProvider;
@@ -20,11 +21,14 @@ import com.deets.test_automation.test_data_generator.Employee.Phone.PersonalPhon
 //import com.deets.test_automation.test_data_generator.Email.EmailProperties;
 //import com.deets.test_automation.test_data_generator.Email.EmailProvider;
 import com.deets.test_automation.test_data_generator.Fairy.Fairy;
+import com.deets.test_automation.test_data_generator.Job.JobProvider;
+import com.deets.test_automation.test_data_generator.Job.Job;
 //import com.devskiller.jfairy.Fairy;
 import com.devskiller.jfairy.data.DataMaster;
 import com.devskiller.jfairy.producer.BaseProducer;
 import com.devskiller.jfairy.producer.DateProducer;
 import com.devskiller.jfairy.producer.person.Person;
+import com.devskiller.jfairy.producer.person.Person.Sex;
 import com.devskiller.jfairy.producer.util.TextUtils;
 import static org.apache.commons.lang3.StringUtils.lowerCase;
 
@@ -33,6 +37,8 @@ import com.google.inject.assistedinject.Assisted;
 public class DefaultEmployeeProvider implements EmployeeProvider {
 	
 	protected String employeeID;
+	protected Integer age;
+	protected LocalDate dateOfBirth;
 	protected String suffix;
 	protected String maritalStatus;
 	protected String nativePreferedLanguage;
@@ -51,19 +57,22 @@ public class DefaultEmployeeProvider implements EmployeeProvider {
 	protected BusinessPhone businessPhone;
 	protected EmergencyContact emergencyContact;
 	protected Address address;
+	protected Job job;
 	
 	protected final BaseProducer baseProducer;
 	protected final DataMaster dataMaster;
 	protected final DateProducer dateProducer;
 	protected final DependentProvider dependentProvider;
 	protected final AddressProvider addressProvider;
+	protected final JobProvider JobProvider;
+	protected final Dictionary dictionary;
 	
 	private ArrayList<String> numbers = new ArrayList<String>();
 
 	@Inject
 	public DefaultEmployeeProvider(BaseProducer baseProducer, DataMaster dataMaster,
 			DateProducer dateProducer, DependentProvider dependentProvider,
-			AddressProvider addressProvider,
+			AddressProvider addressProvider, JobProvider JobProvider,
 			@Assisted EmployeeProperties.EmployeeProperty... employeeProperties) {
 		
 		this.baseProducer = baseProducer;
@@ -72,6 +81,8 @@ public class DefaultEmployeeProvider implements EmployeeProvider {
 		this.dateProducer = dateProducer;
 		this.dependentProvider = dependentProvider;
 		this.addressProvider = addressProvider;
+		this.JobProvider = JobProvider;
+		dictionary = new Dictionary();
 		
 		for (EmployeeProperties.EmployeeProperty employeeProperty : employeeProperties) {
 			employeeProperty.apply(this, baseProducer);
@@ -86,6 +97,8 @@ public class DefaultEmployeeProvider implements EmployeeProvider {
 	public Employee get() {
 		this.person = Fairy.builder().withFilePrefix(Globals.LOC).build().person();
 		
+		generateAge();
+		generateDateOfBirth();
 		generatePrefix();
 		generateSuffix();
 		generateMaritalStatus();
@@ -100,43 +113,60 @@ public class DefaultEmployeeProvider implements EmployeeProvider {
 		generatePersonalPhone();
 		generateEmergencyContact();
 		generateAddress();
+		generateJob();
 		
-		return new Employee(suffix, maritalStatus, nativePreferedLanguage, displayName, preferedName,
+		return new Employee(age, dateOfBirth, suffix, maritalStatus, nativePreferedLanguage, displayName, preferedName,
 				birthName, prefix, maritalStatusSince, person, nationalInfo, dependent, email, businessEmail,
-				personalPhone, businessPhone, emergencyContact, address);
+				personalPhone, businessPhone, emergencyContact, address, job);
 	}
 	
+	public void generateAge() {
+		
+		if (age != null) { return; }
+		if (person.getAge() < 18) {
+			age = baseProducer.randomBetween(18, 110);
+		} else {
+			age = person.getAge();
+		}
+	}
+	public void generateDateOfBirth() {
+	
+		if (dateOfBirth != null) { return; }
+		if (person.getAge() < 18) {
+			LocalDate maxDate = LocalDate.now().minusYears(age);
+			LocalDate minDate = maxDate.minusYears(1).plusDays(1);
+			dateOfBirth = dateProducer.randomDateBetweenTwoDates(minDate, maxDate);
+		} else {
+			dateOfBirth = person.getDateOfBirth();
+		}
+	}
 	public void generateSuffix() {
-		// TODO Auto-generated method stub
+		
 		if (suffix != null) { return; }
 		
 		suffix = baseProducer.trueOrFalse() ? dataMaster.getRandomValue(SUFFIX) : "";
 	}
 	public void generateMaritalStatus() {
-		// TODO Auto-generated method stub
+	
 		if (maritalStatus != null) { return; }
 		
-		if (person.getAge() >= 18) {
 		maritalStatus = dataMaster.getRandomValue(MARITAL_STATUS);
-		} else {
-			maritalStatus = "Single";
-		}
 	}
 	public void generateNativePreferedLanguage() {
-		// TODO Auto-generated method stub
+
 		if (maritalStatus != null) { return; }
 		
 		nativePreferedLanguage = dataMaster.getRandomValue(NATIVE_PREFERED_LANGUAGE);
 	}
 	public void generateDisplayName() {
-		// TODO Auto-generated method stub
+
 		if (displayName != null) { return; }
 		
 		//With or without prefix/suffix?
 		displayName = prefix + " " + person.getFullName() + " " + suffix;
 	}
 	public void generatePreferedName() {
-		// TODO Auto-generated method stub
+
 		// New firstname -> true/false
 		if (preferedName != null ) {
 			return;
@@ -145,34 +175,34 @@ public class DefaultEmployeeProvider implements EmployeeProvider {
 		preferedName = baseProducer.trueOrFalse() ? dataMaster.getValuesOfType(FIRST_NAME, person.getSex().name(), String.class) : "";
 	}
 	public void generateBirthName() {
-		// TODO Auto-generated method stub
+	
 		if (birthName != null) { return; }
 		
 		//With or without prefix/suffix?
 		birthName = prefix + " " + person.getFirstName() + " " + person.getMiddleName() + " " + person.getLastName() + " " + suffix;
 	}
 	public void generatePrefix() {
-		// TODO Auto-generated method stub
+
 		if (prefix != null) { return; }
 		
 		prefix = baseProducer.trueOrFalse() ? dataMaster.getValuesOfType(PREFIX, person.getSex().name(), String.class) : "";
 	}
 	public void generateMaritalStatusSince() {
-		// TODO Auto-generated method stub
+
 		if (maritalStatusSince != null) {
 			return;
 		}
-		if (maritalStatus == "Single") {
-			maritalStatusSince = person.getDateOfBirth();
+		if (dictionary.getMaritalStateValue(maritalStatus) == "Single") {
+			maritalStatusSince = dateOfBirth;
 		} else {
-			maritalStatusSince = dateProducer.randomDateBetweenTwoDates(person.getDateOfBirth().plusYears(18), LocalDate.now());
+			maritalStatusSince = dateProducer.randomDateBetweenTwoDates(dateOfBirth.plusYears(18).minusDays(1), LocalDate.now());
 		}
 	}
 	public void generateDependent() {
 		if (dependent != null) {
 			return;
 		}
-		dependent = dependentProvider.get();
+		dependent = dependentProvider.get(dateOfBirth);
 	}
 	public void generateEmail() {
 		String emailAddress;
@@ -238,7 +268,21 @@ public class DefaultEmployeeProvider implements EmployeeProvider {
 			return;
 		}
 		Person person = Fairy.builder().withFilePrefix(Globals.LOC).build().person();
-		String rel = dataMaster.getValuesOfType(RELATIONSHIP, "emergency", String.class);
+		
+		String relationship =  dataMaster.getValuesOfType(RELATIONSHIP, "dependent", String.class);
+		String relationship_en = dictionary.getRelationshipValue(relationship);
+		if (relationship_en == "Father" && person.getSex() != Sex.MALE) {
+			do {
+				relationship = dataMaster.getValuesOfType(RELATIONSHIP, "dependent", String.class);
+				relationship_en = dictionary.getRelationshipValue(relationship);
+			} while (relationship_en == "Father");
+		} else if (relationship_en == "Mother" && person.getSex() != Sex.FEMALE) {
+			do {
+				relationship = dataMaster.getValuesOfType(RELATIONSHIP, "dependent", String.class);
+				relationship_en = dictionary.getRelationshipValue(relationship);
+			} while (relationship_en == "Mother");
+		}
+		String rel = relationship;
 		String tel = dataMaster.getRandomValue(COUNTRY_CODE) + " " + person.getTelephoneNumber();
 		emergencyContact = new EmergencyContact(person, rel, tel, true);
 	}
@@ -248,45 +292,56 @@ public class DefaultEmployeeProvider implements EmployeeProvider {
 		}
 		address = addressProvider.get();
 	}
+	public void generateJob() {
+		job = JobProvider.get(dateOfBirth);
+	}
 	
+	public void setAge(Integer age) {
+		this.age = age;
+	}
+
+	public void setDateOfBirth(LocalDate dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+
 	public void setSuffix(String suffix) {
-		// TODO Auto-generated method stub
+		
 		this.suffix = suffix;
 	}
 	public void setMaritalStatus(String maritalStatus) {
-		// TODO Auto-generated method stub
+
 		this.maritalStatus = maritalStatus;
 	}
 	public void setNativePreferedLanguage(String nativePreferedLanguage) {
-		// TODO Auto-generated method stub
+	
 		this.nativePreferedLanguage = nativePreferedLanguage;
 	}
 	public void setDisplayName(String displayName) {
-		// TODO Auto-generated method stub
+
 		this.displayName = displayName;
 	}
 	public void setPreferedName(String preferedName) {
-		// TODO Auto-generated method stub
+
 		this.preferedName = preferedName;
 	}
 	public void setBirthName(String birthName) {
-		// TODO Auto-generated method stub
+
 		this.birthName = birthName;
 	}
 	public void setPrefix(String prefix) {
-		// TODO Auto-generated method stub
+
 		this.prefix = prefix;
 	}
 	public void setMaritalStatusSince(LocalDate maritalStatusSince) {
-		// TODO Auto-generated method stub
+	
 		this.maritalStatusSince = maritalStatusSince;
 	}
 	public void setNationalInfo(NationalInfo nationalInfo) {
-		// TODO Auto-generated method stub
+
 		this.nationalInfo = nationalInfo;
 	}
 	public void setDependent(Dependent dependent) {
-		// TODO Auto-generated method stub
+
 		this.dependent = dependent;
 	}
 	public void setEmailType(String emailType) {
@@ -302,8 +357,12 @@ public class DefaultEmployeeProvider implements EmployeeProvider {
 		this.emergencyContact = emergencyContact;
 	}
 	public void setAddress(Address address) {
-		// TODO Auto-generated method stub
+
 		this.address = address;
+	}
+
+	public void setJob(Job job) {
+		this.job = job;
 	}
 
 }

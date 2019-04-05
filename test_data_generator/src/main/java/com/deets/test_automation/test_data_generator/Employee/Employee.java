@@ -10,6 +10,7 @@ import com.deets.test_automation.test_data_generator.Employee.EmergencyContact.E
 import com.deets.test_automation.test_data_generator.Employee.NationalInfo.NationalInfo;
 import com.deets.test_automation.test_data_generator.Employee.Phone.BusinessPhone;
 import com.deets.test_automation.test_data_generator.Employee.Phone.PersonalPhone;
+import com.deets.test_automation.test_data_generator.Job.Job;
 import com.devskiller.jfairy.producer.person.Person;
 
 public class Employee /*extends Person*/{
@@ -21,8 +22,9 @@ public class Employee /*extends Person*/{
 	
 	public Person person;
 	
-	//TODO: incremental & unique
 	private static Integer employeeID = 900000;
+	private Integer age;
+	private LocalDate dateOfBirth;
 	private String suffix;
 	private String maritalStatus;
 	private String nativePreferedLanguage;
@@ -31,7 +33,6 @@ public class Employee /*extends Person*/{
 	private String birthName;
 	private String prefix;
 	private LocalDate maritalStatusSince;
-	private String loc;
 	private NationalInfo nationalInfo;
 	private Dependent dependent;
 	private PersonalEmail email;
@@ -40,22 +41,14 @@ public class Employee /*extends Person*/{
 	private BusinessPhone businessPhone;
 	private EmergencyContact emergencyContact;
 	private Address address;
+	private Job job;
 	
 	
-	public Employee(/*String firstName, String middleName, String lastName, Address address, String email, String username,
-            String password, Sex sex, String telephoneNumber, LocalDate dateOfBirth, Integer age,
-            String nationalIdentityCardNumber, String nationalIdentificationNumber, String passportNumber,
-            Company company, String companyEmail, Country nationality, */String suffix, String maritalStatus,
-			String nativePreferedLanguage, String displayName, String preferedName, String birthName, String prefix,
-			LocalDate maritalStatusSince, Person person, NationalInfo nationalInfo, Dependent dependent, PersonalEmail email,
-			BusinessEmail businessEmail, PersonalPhone personalPhone, BusinessPhone businessPhone, EmergencyContact emergencyContact,
-			Address address) {
-//		super(firstName, middleName, lastName, address, email, username,
-//	              password, sex, telephoneNumber, dateOfBirth, age,
-//	              nationalIdentityCardNumber, nationalIdentificationNumber, passportNumber,
-//	              company, companyEmail, nationality);
-		this.loc = "us";
-		//this.person = Fairy.builder().withFilePrefix(loc).build().person();
+	public Employee(Integer age, LocalDate dateOfBirth, String suffix, String maritalStatus,String nativePreferedLanguage, String displayName, String preferedName, 
+			String birthName, String prefix, LocalDate maritalStatusSince, Person person, NationalInfo nationalInfo, 
+			Dependent dependent, PersonalEmail email,BusinessEmail businessEmail, PersonalPhone personalPhone, BusinessPhone businessPhone, 
+			EmergencyContact emergencyContact, Address address, Job job) {
+
 		
 		employeeID++;
 		this.suffix = suffix;
@@ -75,6 +68,9 @@ public class Employee /*extends Person*/{
 		this.personalPhone = personalPhone;
 		this.emergencyContact = emergencyContact;
 		this.address = address;
+		this.job = job;
+		this.age = age;
+		this.dateOfBirth = dateOfBirth;
 		
 	}
 
@@ -132,10 +128,6 @@ public class Employee /*extends Person*/{
 
 	public String getMaritalStatus() {
 		return maritalStatus;
-	}
-	
-	public String getLoc() {
-		return loc;
 	}
 	
 	public NationalInfo getNationalinfo() {
@@ -198,10 +190,6 @@ public class Employee /*extends Person*/{
 		this.maritalStatusSince = maritalStatusSince;
 	}
 
-	public void setLoc(String loc) {
-		this.loc = loc;
-	}
-
 	public void setNationalInfo(NationalInfo nationalInfo) {
 		this.nationalInfo = nationalInfo;
 	}
@@ -233,5 +221,30 @@ public class Employee /*extends Person*/{
 	public void setAddress(Address address) {
 		this.address = address;
 	}
+
+	public Job getJob() {
+		return job;
+	}
+
+	public void setJob(Job job) {
+		this.job = job;
+	}
+
+	public Integer getAge() {
+		return age;
+	}
+
+	public void setAge(Integer age) {
+		this.age = age;
+	}
+
+	public LocalDate getDateOfBirth() {
+		return dateOfBirth;
+	}
+
+	public void setDateOfBirth(LocalDate dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+	
 	
 }

@@ -14,7 +14,6 @@ public abstract class AbstractAddress implements Address{
 
 	public AbstractAddress(String street, String streetNumber, String apartmentNumber, String postalCode, String city,
 				String country, String addressType, String state) {
-		// TODO Auto-generated constructor stub
 		this.street = street;
 		this.streetNumber = streetNumber;
 		this.postalCode = postalCode;

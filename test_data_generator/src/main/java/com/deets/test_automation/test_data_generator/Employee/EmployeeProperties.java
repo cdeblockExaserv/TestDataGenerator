@@ -16,6 +16,22 @@ public class EmployeeProperties {
 
 	}
 	
+	public static EmployeeProperty age(final Integer age) {
+		return new EmployeeProperty() {
+			@Override
+			public void apply(EmployeeProvider employee, BaseProducer baseProducer) {
+				employee.setAge(age);
+			}
+		};
+	}
+	public static EmployeeProperty suffix(final LocalDate dateOfBirth) {
+		return new EmployeeProperty() {
+			@Override
+			public void apply(EmployeeProvider employee, BaseProducer baseProducer) {
+				employee.setDateOfBirth(dateOfBirth);
+			}
+		};
+	}
 	public static EmployeeProperty suffix(final String suffix) {
 		return new EmployeeProperty() {
 			@Override

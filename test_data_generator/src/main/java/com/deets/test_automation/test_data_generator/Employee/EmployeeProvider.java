@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import com.deets.test_automation.test_data_generator.Dependent.Dependent;
 import com.deets.test_automation.test_data_generator.Employee.Address.Address;
+import com.deets.test_automation.test_data_generator.Job.Job;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.inject.Provider;
 
@@ -34,6 +35,8 @@ public interface EmployeeProvider extends Provider<Employee>{
 	
 	Employee get();
 	
+	void generateAge();
+	void generateDateOfBirth();
 	void generateSuffix();
 	void generateMaritalStatus();
 	void generateNativePreferedLanguage();
@@ -47,7 +50,10 @@ public interface EmployeeProvider extends Provider<Employee>{
 	void generatePersonalPhone();
 	void generateEmergencyContact();
 	void generateAddress();
-	
+	void generateJob();
+
+	public void setAge(Integer age);
+	public void setDateOfBirth(LocalDate dateOfBirth);
 	public void setSuffix(String suffix);
 	public void setMaritalStatus(String maritalStatus);
 	public void setNativePreferedLanguage(String nativePreferedLanguage);
@@ -61,4 +67,6 @@ public interface EmployeeProvider extends Provider<Employee>{
 	public void setEmailType(String emailType);
 	public void setEmailAddress(String emailAddress);
 	public void setEmailIsPrimary(boolean isPrimary);
+	public void setJob(Job job);
+
 }

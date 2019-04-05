@@ -17,12 +17,13 @@ data:
      male: [Mr, Sr, Dr, Prof],
      female: [Mrs, Ms, Dr, Prof]
   }
-  maritalStates: [Married, Single, Divorced, Widowed, Separated, Registered Partnership]
-  nativePreferedLanguages: [English, French]
+  maritalStates: [Marrié, Célibataire, Divorcé, Veuf, Séparé, Partenariat Enregistré]
+  nativePreferedLanguages: [Anglais, Français]
   street: [ "Rue de l'Église", "Place de l'Église", Grande Rue, Rue du Moulin, Place de la Mairie, Rue du Château, Rue des Écoles, Rue de la Gare, Rue de la Mairie, Rue Principale, Rue du Stade, Rue de la Fontaine, Rue Pasteur, Rue des Jardins, Rue Victor-Hugo ]
   postal_code: ['#####']
   city: [Paris, Marseille, Lyon, Toulouse, Nice, Nantes, Strasbourg, Montpellier, Bordeaux, Lille, Rennes, Reims, Le Havre, Saint-Étienne, Toulon, Grenoble, Dijon, Angers, Nîmes, Villeurbanne, Saint-Denis, Le Mans, Clermont-Ferrand, Aix-en-Provence, Brest, Limoges, Tours, Amiens, Perpignan, Metz, Boulogne-Billancourt, Besançon, Orléans, Rouen, Mulhouse, Caen, Saint-Denis, Nancy, Argenteuil, Saint-Paul, Montreuil, Roubaix, Tourcoing, Dunkerque, Nanterre, Créteil, Avignon, Vitry-sur-Seine, Poitiers, Courbevoie, Fort-de-France, Versailles, Colombes, Asnières-sur-Seine, Aulnay-sous-Bois, Saint-Pierre, Rueil-Malmaison, Pau, Aubervilliers, Champigny-sur-Marne, Le Tampon, Antibes, Saint-Maur-des-Fossés, La Rochelle, Cannes, Béziers, Calais, Saint-Nazaire, Colmar, Drancy, Bourges, Mérignac, Ajaccio, Issy-les-Moulineaux, Levallois-Perret, La Seyne-sur-Mer, Quimper, Noisy-le-Grand, Valence, "Villeneuve-d'Ascq", Neuilly-sur-Seine, Antony, Vénissieux, Cergy, Troyes, Clichy, Pessac, Les Abymes, Ivry-sur-Seine, Chambéry, Lorient, Niort, Sarcelles, Montauban, Villejuif, Saint-Quentin, Hyères, Cayenne, Épinay-sur-Seine, Saint-André, Beauvais, Maisons-Alfort, Cholet, Meaux, Chelles, Pantin, Fontenay-sous-Bois, La Roche-sur-Yon, Bondy, Vannes, Saint-Louis, Fréjus, Arles, Clamart, Évry, Le Blanc-Mesnil, Narbonne, Sartrouville, Grasse, Annecy, Laval, Belfort, Vincennes, Charleville-Mézières, Évreux, Sevran, Albi, Montrouge, Bobigny, Martigues, Saint-Ouen, Brive-la-Gaillarde, Suresnes, Carcassonne, Cagnes-sur-Mer, Corbeil-Essonnes, Saint-Brieuc, Blois, Bayonne, Aubagne, Châlons-en-Champagne, Meudon, Châteauroux, Saint-Malo, Chalon-sur-Saône, Sète, Puteaux, Alfortville, Salon-de-Provence, Massy, Mantes-la-Jolie, Bastia, Vaulx-en-Velin, Saint-Herblain, Le Cannet, Valenciennes, Istres, Gennevilliers, Boulogne-sur-Mer, Livry-Gargan, Saint-Priest, Rosny-sous-Bois, Caluire-et-Cuire, Angoulême, Douai, Tarbes, Wattrelos, Castres, Choisy-le-Roi, Talence, Thionville, Arras, Alès, Garges-lès-Gonesse, Gap, Saint-Laurent-du-Maroni, Melun, Bourg-en-Bresse, Noisy-le-Sec, Compiègne, La Courneuve, Le Lamentin, Marcq-en-Barœul, Saint-Germain-en-Laye, Rezé, Bron, Anglet, Gagny, Chartres, Bagneux, "Saint-Martin-d'Hères", Montluçon, Pontault-Combault, Poissy, Draguignan, Joué-lès-Tours, Savigny-sur-Orge, Cherbourg-Octeville, Saint-Joseph, Le Port, Colomiers, Saint-Martin, Villefranche-sur-Saône, Stains, Saint-Benoît, Échirolles, Villepinte, Roanne, Montélimar, Saint-Chamond, Nevers, Conflans-Sainte-Honorine, Auxerre, Sainte-Geneviève-des-Bois, Châtillon, Bagnolet, Vitrolles, Thonon-les-Bains, Neuilly-sur-Marne, Haguenau, Marignane, Saint-Raphaël, Tremblay-en-France, La Ciotat, Six-Fours-les-Plages, Creil, Agen, Romans-sur-Isère, Montigny-le-Bretonneux, Le Perreux-sur-Marne, Franconville, Annemasse, Villeneuve-Saint-Georges, Saint-Leu, Mâcon, Cambrai, Lens, Houilles, Épinal, Châtenay-Malabry, Schiltigheim, Sainte-Marie, Liévin, Châtellerault, Meyzieu, Goussainville, Viry-Châtillon, Dreux, "L'Haÿ-les-Roses", Plaisir, Mont-de-Marsan, Maubeuge, Nogent-sur-Marne, Les Mureaux, Clichy-sous-Bois, La Possession, Dieppe, Chatou, Vandœuvre-lès-Nancy, Malakoff, Palaiseau, Pontoise, Charenton-le-Pont]
   country: [France]
+  states: [Bourgogne-Franche-Comté, Nouvelle-Aquitaine, Normandy, Grand Est, Occitanie, Hauts-de-France, Auvergne-Rhône-Alpes, Brittany, Centre-Val de Loire, Corsica, French Guiana, Guadeloupe, Île-de-France, Martinique, Mayotte, Pays de la Loire, Provence-Alpes-Côte d'Azur, Réunion]
   personalEmails: [ gmail.com, yahoo.com, yahoo.fr, free.fr, orange.fr, laposte.net, hotmail.fr ]
   telephone_number_formats: ["0#########"]
   text: "Quoique ce détail ne touche en aucune manière au fond même de ce que nous avons à raconter, il n’est peut-être pas inutile, ne fût-ce que pour être exact en tout, d’indiquer ici les bruits et les propos qui avaient couru sur son compte au moment où il était arrivé dans le diocèse. Vrai ou faux, ce qu’on dit des hommes tient souvent autant de place dans leur vie et souvent dans leur destinée que ce qu’ils font. M. Myriel était fils d’un conseiller au parlement d’Aix ; noblesse de robe. On contait que son père, le réservant pour hériter de sa charge, l’avait marié de fort bonne heure, à dix-huit ou vingt ans, suivant un usage assez répandu dans les familles parlementaires. Charles Myriel, nonobstant ce mariage, avait, disait-on, beaucoup fait parler de lui. Il était bien fait de sa personne, quoique d’assez petite taille, élégant, gracieux, spirituel ; toute la première partie de sa vie avait été donnée au monde et aux galanteries. La révolution survint, les événements se précipitèrent ; les familles parlementaires, décimées, chassées, traquées, se dispersèrent. M. Charles Myriel, dès les premiers jours de la révolution, émigra en Italie. Sa femme y mourut d’une maladie de poitrine dont elle était atteinte depuis longtemps. Ils n’avaient point d’enfants. Que se passa-t-il ensuite dans la destinée de M. Myriel ? L’écroulement de l’ancienne société française, la chute de sa propre famille, les tragiques spectacles de 93, plus effrayants encore peut-être pour les émigrés qui les voyaient de loin avec le grossissement de l’épouvante, firent-ils germer en lui des idées de renoncement et de solitude ? Fut-il, au milieu d’une de ces distractions et de ces affections qui occupaient sa vie, subitement atteint d’un de ces coups mystérieux et terribles qui viennent quelquefois renverser, en le frappant au cœur, l’homme que les catastrophes publiques n’ébranleraient pas en le frappant dans son existence et dans sa fortune ? Nul n’aurait pu le dire ; tout ce qu’on savait, c’est que, lorsqu’il revint d’Italie, il était prêtre.\n"
@@ -30,10 +31,53 @@ data:
   language: 'FR'
   
   relationships: {
-     dependent: [Parents, Époux, Enfant],
-     emergency: [Parents, Époux, Autres]
+     dependent: [Mère, Père, Époux, Enfant],
+     emergency: [Mère, Père, Époux, Autres]
   }
   
   nationalIdTypes: [Numéro d'inscription au répertoire]
   
   phoneCountryCode: ["+33"]
+  
+  addressType: [Résidence, Facturation, Autres]
+  
+      #-- Job Info {between [] only test data, not complete} --> Needs translation!
+  positions: [Analyst (700042), Assembly Worker (500300216), Building Manager (700040), Chief Talent Officer (500300201)]
+  
+  companies: [Exaserv, AB Science, ABC Arbitrage, Acanthe Développement, Acteos, Actia Group, Adlpartner, Adocia, Aéroports De Paris, Affine, Afone, Air France, Akka Technologies, Albioma, Altamir, Alten, Altran Technologies, Anf Immobilier, Aperam Reg., April, Archos, Areva, Argan, Artprice Com, Ask, Assystem, Ast Groupe, Atari, Ateme, Aubay, Audika, Aufeminin, Aurea, Aures Technologies, Ausy, Avanquest, Avenir Finance, Avenir Telecom, Aviation Latecoere, Awox, Axway Software, Barbara Bui, Bastide Le Confort, Belier, Belvédère, Beneteau, Bic, Bigben Interactive, Biomerieux, Blue Solutions, Boiron, Bollore, Bonduelle, Bourbon, Bourse Direct, Business Et Décision, Cafom, Canal+, Capelli, Cast, Catana Group, Catering Intl Services, Cegedim, Cegereal, Cegid Group, CGG, Chargeurs, Cibox Interactive, CNP Assurances, Coface, Coheris, Compagnie Des Alpes, Cs Communicat.  Syst, Dalet Rev. split, Dbv Technologies, Delta Plus Group, Derichebourg, Dernier, Devoteam, Dexia, Diagnostic Medical, Dnxcorp, Eca, Egide, Eiffage, Ekinops, Electricité Et Eaux Madagascar, Elior, Encres Dubuit, Eos Imaging, Eramet, Erytech Pharma, Esi Group, Esso, Euler Hermes Group, Eurazeo, Euro Disney, Euro Ressources, Eurofins Scientific, Euromedis Groupe, Euronext, Europacorp, Exel Industries A, Faiveley, Faurecia, Fermentalg, Fleury Michon, Fonc. Paris Nord, Foncière De Paris, Foncière Des Regions, Gameloft, Gascogne, Gaztrans. techn., Gea Grenobl. elect., Gecina Nominatif, Generix, Genfit, Genomic Vision, Genticel, Gerard Perrier Industrie, GFI Informatique, GL Events, GP Eurotunnel Rgpt, Groupe Crit, Groupe Flo, Groupe Fnac, Groupe Gorge, Groupe Open, Groupe Pizzorno Environnement, Guerbet, Guillemot, Haulotte Group, Havas, Hf Company, Hi Media, High Co, Hubwoo. com, Icade, ID Logistics, Ige + Xao, Imerys, Implanet, Infotel, Ingenico Group, Innate Pharma, Innelec Multimedia, Inside Secure, Interparfums, Intle Plant. heveas, Ipsen, Ipsos, It Link, Itesoft, Its Group, Jacquet Metal Sce, Jcdecaux Sa., Keyrus, Korian medica, Lacroix Sa, Lagardère Sca N, Lanson, Laurent Perrier, LDLC Com, Le Noble Age, Lectra, Lexibook Linguist., Linedata Services, Lisi, Lnc, Maisons France Confort, Manitou Bf, Manutan Intl, Mauna Kea Tech, Maurel Et Prom, Mcphy Energy, Mecelec, Medasys, Medtech, Memscap Regpt, Mercialys, Mersen, Metabolic Explorer, Metropole TV, MGI Coutier, Micropole, Mnd, Montaigne Fashion, Montupet, MPI, Mr Bricolage, N. Dentressangle, Nanobiotix, Naturex, Neopost, NetGem, Neurones, Nexans, Nexity, Nextradiotv, Nicox, NRJ Group, Numericable SFR, Oeneo, Ol Groupe, Onxeo, Orapi, Orco Property Group, Orege, Orpea, Paref, Parrot, Partouche, Pcas, Pharmagest Inter., Pierre Et Vacances, Pixium Vision, Plastic Omnium, Plastivaloire, Precia, Prologue, PSB Industries, Public Systeme Hop, Quantel, Recylex, Rémy Cointreau, Rentabiliweb Group, Rexel, Riber, Rubis, Saft, Sartorius Sted Bio, Scbsm, Seb, Sèche Environnement, Sequana Regpt, Sergeferrari Group, Sii, Soft Computing, Sogeclair, Soitec Silicon, Solocal Group, Solucom, Sopra Steria Group, Spir Communication, SQLI Regpt, St Dupont, Stallergenes, Stef, Stentys, Store Electronic, Supersonic Imagine, Sword Group, Synergie, Tarkett, Technicolor Rgpt, Téléperformance, Terreis, Tessi, TF1, Theolia, Thermador Groupe, Tivoly, Tonn. François Fres, Touax, Toupargel, Transgène, Trigano, Tunn Prado Caren, Txcell, U10, Ubisoft Entertain., Union Fin. France, Union Tech. infor., Valneva, Valtech Rev. split, Vet Affaires, Vetoquinol, Viadeo, Vicat, Vilmorin & Cie, Virbac, Vm Materiaux, Vranken pommery Monopole, Wendel, Xilam Animation, Ymagis, Zublin Immobiliere France]
+  
+  businessUnits: [CORP, GCS, PRODS, RETAIL, SALES, SVCS]
+  
+  divisions: [CORP_SVCS, DEV, DIR_SALES, EXEC, BUS_DEV, GCS_APJ, GCS_EMEA, GCS_LATAM, GCS_NA, IT, INSIDE_SALES, MANU, PROF_SVCS, RCENTRAL, RC, RNE, RNW, RSE, RWEST]
+     
+  departments: ['50150016', '50150018', '50000603']
+
+  locations: [1710-0013, 3200-0001, 1710-0015, 3400-0001]
+  
+  costcenters: [3000-2210, 3000-1000, 3000-1100, 3000-1110]
+  
+  jobClassifications: ['50070968', '50012557', '50071001', '50000074']
+     #Min weekly hours 
+  minHours: ['20']
+     #Max weekly hours
+  maxHours: ['48']
+  
+  paygrades: [H-01, H-02, GR-01, GR-02] 
+  
+  fte: ['1', '1.5', '2', '2.5', '3']
+  
+  employeeClasses: [Active, Agency/Temp, Apprentice, Assignee, Consultant, Contractor, Contractors/3rd prty, Employee, Expatriate, Intern, Retiree/Pensioner, Temp/Seasonal, Terminated]
+  
+  shiftCodes: ['1', '2', '3']
+  
+  fslaStatus: [Exempt, No FSLA Required, Nonexempt]
+  
+  eeoJobGroups: [Administrative Managers, Craft Workers, Executives, Finance, Global Services, Hardware Engineers]
+  
+  eeoCategory1: [1.1 Executive or Senior Level Officials and Managers, 1.2 First/ Mid-Level Officials and Managers, 2. Professionals, 3. Technicians]
+  
+  eeoCategory4: [No EEO-4 Reporting, Office/Clerical, Officials and Administrators]
+  
+  eeoCategory5: [Asst. Principals-Nonteaching, Asst. Principals-Teaching, Clerical/Secretarial]
+  
+  eeoCategory6: [Executive/Admin/Managerial, Faculty, No EEO-6 Reporting]

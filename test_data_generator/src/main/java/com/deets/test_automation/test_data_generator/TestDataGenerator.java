@@ -31,7 +31,7 @@ public class TestDataGenerator {
 	static Locale loc;
 	
 	public static void main(String[] args) throws Throwable {
-		// TODO Auto-generated method stub
+		
 		final Date timestamp = new Date();
 		final SimpleDateFormat dateFormat = 
 				new SimpleDateFormat("yyMMdd_hhmmss");
@@ -150,24 +150,24 @@ public class TestDataGenerator {
 //		appendChild(createElement("EmailType",employee.getEmail().getEmailType()),segmentNode);
 //		appendChild(createElement("EmailIsPrimary", "true"), segmentNode);
 //		
-////		if (employee.getEmail() != null) {
-////			appendChild(createElement("EmailAddress",employee.getEmail().getEmailAddress()),segmentNode);
-////			appendChild(createElement("EmailType",employee.getEmail().getEmailType()),segmentNode);
-////			if (employee.getEmail().isPrimary() == true) {
-////				appendChild(createElement("EmailIsPrimary","true"),segmentNode);
-////			} else {
-////				appendChild(createElement("EmailIsPrimary","false"),segmentNode);
-////			}
-////		}
-////		if (employee.getBusinessEmail() != null) {
-////			appendChild(createElement("BusinessEmailAddress",employee.getBusinessEmail().getEmailAddress()),segmentNode);
-////			appendChild(createElement("EmailType",employee.getBusinessEmail().getEmailType()),segmentNode);
-////			if (employee.getBusinessEmail().isPrimary() == true) {
-////				appendChild(createElement("EmailIsPrimary","true"),segmentNode);
-////			} else {
-////				appendChild(createElement("EmailIsPrimary","false"),segmentNode);
-////			}
-////		}
+//		if (employee.getEmail() != null) {
+//			appendChild(createElement("EmailAddress",employee.getEmail().getEmailAddress()),segmentNode);
+//			appendChild(createElement("EmailType",employee.getEmail().getEmailType()),segmentNode);
+//			if (employee.getEmail().isPrimary() == true) {
+//				appendChild(createElement("EmailIsPrimary","true"),segmentNode);
+//			} else {
+//				appendChild(createElement("EmailIsPrimary","false"),segmentNode);
+//			}
+//		}
+//		if (employee.getBusinessEmail() != null) {
+//			appendChild(createElement("BusinessEmailAddress",employee.getBusinessEmail().getEmailAddress()),segmentNode);
+//			appendChild(createElement("EmailType",employee.getBusinessEmail().getEmailType()),segmentNode);
+//			if (employee.getBusinessEmail().isPrimary() == true) {
+//				appendChild(createElement("EmailIsPrimary","true"),segmentNode);
+//			} else {
+//				appendChild(createElement("EmailIsPrimary","false"),segmentNode);
+//			}
+//		}
 //	}
 	
 //	public void generateAddress(Employee employee,org.w3c.dom.Element employeeNode){
@@ -190,7 +190,7 @@ public class TestDataGenerator {
 //		appendChild(createElement("LastName",employee.getDependent().getPerson().getLastName()),segmentNode);
 //	}
 //	
-	//TODO: Determine how and what exactly needs to be in NationalIDInfo?
+
 //	public void generateNationalInfo(Employee employee,org.w3c.dom.Element employeeNode){
 //		org.w3c.dom.Element segmentNode = appendChild(createElement("NationalIdInfo",""),employeeNode);
 //		appendChild(createElement("NationalIDNumber",employee.person.getNationalIdentificationNumber()),segmentNode);
@@ -208,6 +208,50 @@ public class TestDataGenerator {
 //	appendChild(createElement("PersonalPhoneIsPrimary","true"),segmentNode);
 //	
 //}
+	
+	public void generateJobInfo(Employee employee,org.w3c.dom.Element employeeNode){
+	org.w3c.dom.Element segmentNode = appendChild(createElement("JobInfo",""),employeeNode);
+	appendChild(createElement("Incumbent",employee.getJob().getIncumbent()),segmentNode);
+	appendChild(createElement("Position",employee.getJob().getPosition()),segmentNode);
+	appendChild(createElement("PositionEntryDate",employee.getJob().getPositionEntryDate().toString()),segmentNode);
+	appendChild(createElement("Company",employee.getJob().getCompany()),segmentNode);
+	appendChild(createElement("BusinessUnit",employee.getJob().getBusinessUnit()),segmentNode);
+	appendChild(createElement("Division",employee.getJob().getDivision()),segmentNode);
+	appendChild(createElement("Department",employee.getJob().getDepartment()),segmentNode);
+	appendChild(createElement("Location",employee.getJob().getLocation()),segmentNode);
+	appendChild(createElement("CostCenter",employee.getJob().getCostCenter()),segmentNode);
+	appendChild(createElement("TimeZone",employee.getJob().getTimezone()),segmentNode);
+	appendChild(createElement("Supervisor",employee.getJob().getSupervisor()),segmentNode);
+	appendChild(createElement("JobClassification",employee.getJob().getJobClassification()),segmentNode);
+	appendChild(createElement("PositionTitle",employee.getJob().getPositionTitle()),segmentNode);
+	appendChild(createElement("LocalJobTitle",employee.getJob().getLocalJobTitle()),segmentNode);
+	appendChild(createElement("PayGrade",employee.getJob().getPayGrade()),segmentNode);
+	if(employee.getJob().getIsRegular()) {
+		appendChild(createElement("IsRegular", "true"),segmentNode);
+	} else {
+		appendChild(createElement("IsRegular", "false"),segmentNode);
+	}
+	appendChild(createElement("StandardWeeklyHours",employee.getJob().getStandardWeeklyHours().toString()),segmentNode);
+	appendChild(createElement("FTE",employee.getJob().getFTE().toString()),segmentNode);
+	if(employee.getJob().getIsFulltime()) {
+		appendChild(createElement("IsFulltime", "true"),segmentNode);
+	} else {
+		appendChild(createElement("IsFulltime", "false"),segmentNode);
+	}
+	appendChild(createElement("EmployeeClass",employee.getJob().getEmployeeClass()),segmentNode);
+	appendChild(createElement("ShiftCode",employee.getJob().getShiftCode()),segmentNode);
+	appendChild(createElement("FSLAStatus",employee.getJob().getFSLA_status()),segmentNode);
+	appendChild(createElement("JobEntryDate",employee.getJob().getJobEntryDate().toString()),segmentNode);
+	appendChild(createElement("LeaveOfAbsenceStartDate",employee.getJob().getLeaveOfAbsenceStartDate().toString()),segmentNode);
+	appendChild(createElement("LeaveOfAbsenceReturnDate",employee.getJob().getLeaveOfAbsenseReturnDate().toString()),segmentNode);
+	appendChild(createElement("LMSJobCodeID",employee.getJob().getLMS_jobCodeID().toString()),segmentNode);
+	appendChild(createElement("EEOJobGroup",employee.getJob().getEEO_jobGroup()),segmentNode);
+	appendChild(createElement("EEOCategory1",employee.getJob().getEeoCategory1()),segmentNode);
+	appendChild(createElement("EEOCategory4",employee.getJob().getEeoCategory4()),segmentNode);
+	appendChild(createElement("EEOCategory5",employee.getJob().getEeoCategory5()),segmentNode);
+	appendChild(createElement("EEOCategory6",employee.getJob().getEeoCategory6()),segmentNode);
+	
+}
 	
 	public void generateEmployee(Locale loc){
 		//Person person;
@@ -233,9 +277,11 @@ public class TestDataGenerator {
 			Globals.LOC = "us";
 			employee = Fairy.builder().withFilePrefix("us").build().employee();
 		}
+		Globals.Employees.add(employee);
 		//Person person = Fairy.builder().withLocale(loc).withFilePrefix("test").build().person();
 		org.w3c.dom.Element employeeNode = appendChild(createElement("Employee",""),rootElementParent);
 		generateBiographicalData(employee,employeeNode);
+		generateJobInfo(employee, employeeNode);
 //		generateAddress(employee,employeeNode);
 //		generateDependent(employee,employeeNode);
 //		generateEmail(employee, employeeNode);

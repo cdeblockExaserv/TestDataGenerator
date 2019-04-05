@@ -1,6 +1,9 @@
 package com.deets.test_automation.test_data_generator.Locale;
 
+import java.time.LocalDate;
+
 import com.deets.test_automation.test_data_generator.Dependent.AbstractDependentProvider;
+import com.deets.test_automation.test_data_generator.Dependent.Dependent;
 import com.devskiller.jfairy.data.DataMaster;
 import com.devskiller.jfairy.producer.BaseProducer;
 import com.devskiller.jfairy.producer.DateProducer;
@@ -14,7 +17,13 @@ public class EnDependentProvider extends AbstractDependentProvider{
 	}
 
 	public EnDependent get() {
-		return new EnDependent(getDate(), getRelationship(), getPerson());
+		return new EnDependent(getPerson(), getRelationship(),  getDate());
+	}
+
+	@Override
+	public Dependent get(LocalDate dateOfBirth) {
+		setDateOfBirth(dateOfBirth);
+		return new EnDependent(getPerson(), getRelationship(),  getDate());
 	}
 
 }
