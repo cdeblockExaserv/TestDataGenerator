@@ -28,5 +28,4 @@ public abstract class AbstractDependent implements Dependent{
 		return person;
 	}
 
-	
 }
