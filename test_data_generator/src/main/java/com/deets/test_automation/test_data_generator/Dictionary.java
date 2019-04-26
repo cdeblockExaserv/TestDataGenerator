@@ -8,7 +8,9 @@ public class Dictionary {
 	
 	private HashMap<String, String> relationships = new HashMap<String, String>();
 	private HashMap<String, String> maritalStates = new HashMap<String,String>();
-
+	private HashMap<String, String> emailTypes = new HashMap<String,String>();
+	private HashMap<String, String> phoneTypes = new HashMap<String,String>();
+ 
 	public Dictionary() {
 		super();
 		//fr
@@ -23,6 +25,10 @@ public class Dictionary {
 		maritalStates.put("Veuf", "Widowed");
 		maritalStates.put("Séparé", "Separated");
 		maritalStates.put("Partenariat Enregistré", "Registered Parntership");
+		emailTypes.put("Personnel", "Personal");
+		emailTypes.put("Professionnel", "Business");
+		phoneTypes.put("Personnel", "Personal");
+		phoneTypes.put("Professionnel", "Business");
 		//en
 		relationships.put("Father", "Father");
 		relationships.put("Mother", "Mother");
@@ -35,6 +41,10 @@ public class Dictionary {
 		maritalStates.put("Widowed", "Widowed");
 		maritalStates.put("Separated", "Separated");
 		maritalStates.put("Registered Partnership", "Registered Parntership");
+		emailTypes.put("Personal", "Personal");
+		emailTypes.put("Business", "Business");
+		phoneTypes.put("Personal", "Personal");
+		phoneTypes.put("Business", "Business");
 	}
 
 	public HashMap<String, String> getRelationships() {
@@ -43,6 +53,14 @@ public class Dictionary {
 
 	public HashMap<String, String> getMaritalStates() {
 		return maritalStates;
+	}
+	
+	public HashMap<String, String> getEmailTypes() {
+		return emailTypes;
+	}
+	
+	public HashMap<String, String> getPhoneTypes() {
+		return phoneTypes;
 	}
 	
 	public String getRelationshipValue(String myKey) {
@@ -75,4 +93,33 @@ public class Dictionary {
 		return "No matching keys found";
 	}
 
+	public String getEmailTypeValue(String myKey) {
+		try {
+			Set<String> keys = emailTypes.keySet();
+			for (String key : keys) {
+				if (key.equals(myKey)) {
+					return emailTypes.get(myKey);
+				}
+			}
+			throw new IOException("No matching keys found");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "No matching keys found";
+	}
+	
+	public String getPhoneTypeValue(String myKey) {
+		try {
+			Set<String> keys = phoneTypes.keySet();
+			for (String key : keys) {
+				if (key.equals(myKey)) {
+					return phoneTypes.get(myKey);
+				}
+			}
+			throw new IOException("No matching keys found");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "No matching keys found";
+	}
 }

@@ -8,5 +8,6 @@ public class Globals {
 	
 	public static String LOC;
 	public static ArrayList<Employee> Employees = new ArrayList<Employee>();
+	public static SettingsPage settings;
 
 }

@@ -1,6 +1,6 @@
 package com.deets.test_automation.test_data_generator.Employee.Email;
 
-public abstract class Email {
+public class Email {
 
 	private String emailAddress;
 	private String emailType;

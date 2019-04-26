@@ -28,7 +28,7 @@ public class Job {
 	private String FSLA_status;
 	private LocalDate jobEntryDate;
 	private String leaveOfAbsenceStartDate;
-	private String leaveOfAbsenseReturnDate;
+	private String leaveOfAbsenceReturnDate;
 	private Integer LMS_jobCodeID;
 	private String EEO_jobGroup;
 	private String EEO_category1;
@@ -41,7 +41,7 @@ public class Job {
 			String jobClassification, String positionTitle, String localJobTitle, String payGrade, boolean isRegular,
 			Integer standardWeeklyHours, Double fTE, boolean isFulltime, String employeeClass, String shiftCode,
 			String fSLA_status, LocalDate jobEntryDate, String leaveOfAbsenceStartDate,
-			String leaveOfAbsenseReturnDate, Integer lMS_jobCodeID, String eEO_jobGroup, String eEO_category1,
+			String leaveOfAbsenceReturnDate, Integer lMS_jobCodeID, String eEO_jobGroup, String eEO_category1,
 			String eEO_category4, String eEO_category5, String eEO_category6) {
 		super();
 		this.incumbent = incumbent;
@@ -68,7 +68,7 @@ public class Job {
 		FSLA_status = fSLA_status;
 		this.jobEntryDate = jobEntryDate;
 		this.leaveOfAbsenceStartDate = leaveOfAbsenceStartDate;
-		this.leaveOfAbsenseReturnDate = leaveOfAbsenseReturnDate;
+		this.leaveOfAbsenceReturnDate = leaveOfAbsenceReturnDate;
 		LMS_jobCodeID = lMS_jobCodeID;
 		EEO_jobGroup = eEO_jobGroup;
 		EEO_category1 = eEO_category1;
@@ -223,8 +223,8 @@ public class Job {
 
 
 
-	public String getLeaveOfAbsenseReturnDate() {
-		return leaveOfAbsenseReturnDate;
+	public String getLeaveOfAbsenceReturnDate() {
+		return leaveOfAbsenceReturnDate;
 	}
 
 
@@ -409,8 +409,8 @@ public class Job {
 
 
 
-	public void setLeaveOfAbsenseReturnDate(String leaveOfAbsenseReturnDate) {
-		this.leaveOfAbsenseReturnDate = leaveOfAbsenseReturnDate;
+	public void setLeaveOfAbsenceReturnDate(String leaveOfAbsenceReturnDate) {
+		this.leaveOfAbsenceReturnDate = leaveOfAbsenceReturnDate;
 	}
 
 

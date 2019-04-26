@@ -232,7 +232,7 @@ public class JobProperties {
 		return new JobProperty() {
 			@Override
 			public void apply(JobProvider job, BaseProducer baseProducer) {
-				job.setLeaveOfAbsenseReturnDate(leaveOfAbsenceEndDate);
+				job.setLeaveOfAbsenceReturnDate(leaveOfAbsenceEndDate);
 			}
 		};
 	}

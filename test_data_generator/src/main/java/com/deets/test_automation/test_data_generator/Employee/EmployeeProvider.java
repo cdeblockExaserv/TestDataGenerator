@@ -21,17 +21,11 @@ public interface EmployeeProvider extends Provider<Employee>{
 	@VisibleForTesting
 	String PREFIX = "prefixes";
 	@VisibleForTesting
-	String EMAIL_TYPE = "emailTypes";
-	@VisibleForTesting
-	String PERSONAL_EMAIL = "personalEmails";
-	@VisibleForTesting
-	String NATIONAL_ID_TYPE = "nationalIdTypes";
-	@VisibleForTesting
-	String COUNTRY = "country";
-	@VisibleForTesting
 	String COUNTRY_CODE = "phoneCountryCode";
 	@VisibleForTesting
-	String RELATIONSHIP = "relationships";
+	String MIN_AGE = "minAge";
+	@VisibleForTesting
+	String MAX_AGE = "maxAge";
 	
 	Employee get();
 	
@@ -47,7 +41,7 @@ public interface EmployeeProvider extends Provider<Employee>{
 	void generateMaritalStatusSince();
 	void generateDependent();
 	void generateEmail();
-	void generatePersonalPhone();
+	void generatePhone();
 	void generateEmergencyContact();
 	void generateAddress();
 	void generateJob();

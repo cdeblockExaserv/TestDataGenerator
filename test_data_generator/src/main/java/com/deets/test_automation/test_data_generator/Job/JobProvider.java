@@ -44,6 +44,8 @@ public class JobProvider implements Provider<Job>{
 	@VisibleForTesting
 	String FSLA_STATUS = "fslaStatus";
 	@VisibleForTesting
+	String MIN_JOB_ENTRY = "minJobEntryDate";
+	@VisibleForTesting
 	String EEO_JOB_GROUP = "eeoJobGroups";
 	@VisibleForTesting
 	String EEO_CATEGORY1 = "eeoCategory1";
@@ -80,7 +82,7 @@ public class JobProvider implements Provider<Job>{
 	protected LocalDate jobEntryDate;
 	private LocalDate loaDate;
 	protected String leaveOfAbsenceStartDate;
-	protected String leaveOfAbsenseReturnDate;
+	protected String leaveOfAbsenceReturnDate;
 	protected Integer LMS_jobCodeID;
 	protected String EEO_jobGroup;
 	protected String EEO_category1;
@@ -141,237 +143,220 @@ public class JobProvider implements Provider<Job>{
 		return new Job(incumbent, position, positionEntryDate, company, businessUnit, division, department,
 					location, costCenter, timezone, supervisor, jobClassification, positionTitle, localJobTitle,
 					payGrade, isRegular, standardWeeklyHours, fte, isFulltime, employeeClass, shiftCode,
-					FSLA_status, jobEntryDate, leaveOfAbsenceStartDate, leaveOfAbsenseReturnDate, LMS_jobCodeID, 
+					FSLA_status, jobEntryDate, leaveOfAbsenceStartDate, leaveOfAbsenceReturnDate, LMS_jobCodeID, 
 					EEO_jobGroup, EEO_category1, EEO_category4, EEO_category5, EEO_category6);
 	}
 
 	public void generateIncumbent() {
-		if (incumbent != null) {
-			return;
-		}
-		incumbent = "";
-	}
-
-	public void generatePosition() {
-		if (position != null) {
-			return; 
-		}
-		position = StringUtils.substringBetween(dataMaster.getRandomValue(POSITION), "(", ")");
-	}
-
-	public void generatePositionEntryDate() {
-		if (positionEntryDate != null) {
-			return;
-		}
-		positionEntryDate = dateProducer.randomDateBetweenTwoDates(jobEntryDate, LocalDate.now().minusDays(1));
-	}
-
-	public void generateCompany() {
-		if(company != null) {
-			return;
-		}
-		company = dataMaster.getRandomValue(COMPANY);
-	}
-
-	public void generateBusinessUnit() {
-		if(businessUnit != null) {
-			return;
-		}
-		businessUnit = dataMaster.getRandomValue(BUSINESS_UNIT);
-	}
-
-	public void generateDivision() {
-		if(division != null) {
-			return;
-		}
-		division = dataMaster.getRandomValue(DIVISION);		
-	}
-
-	public void generateDepartment() {
-		if(department != null) {
-			return;
-		}
-		department = dataMaster.getRandomValue(DEPARTMENT);		
-	}
-
-	public void generateLocation() {
-		if(location != null) {
-			return;
-		}
-		location = dataMaster.getRandomValue(LOCATION);		
-	}
-
-	public void generateCostcenter() {
-		if(costCenter != null) {
-			return;
-		}
-		costCenter = dataMaster.getRandomValue(COSTCENTER);		
-	}
-
-	public void generateTimezone() {
-		if(timezone != null) {
-			return;
-		}
-		// Maybe generated -> TrueOrFalse()
-		timezone = "";
-	}
-
-	public void generateSupervisor() {
-		if(supervisor != null) {
-			return;
-		}
-		if (!Globals.Employees.isEmpty()) {
-			int index = baseProducer.randomBetween(0, Globals.Employees.size()-1);
-			supervisor = Globals.Employees.get(index).getEmployeeID().toString();
-		} else {
-			supervisor = "";
-		}
-	}
-
-	public void generateJobClassification() {
-		if(jobClassification != null) {
-			return;
-		}
-		jobClassification = dataMaster.getRandomValue(JOB_CLASSIFICATION);
-	}
-
-	public void generatePositionTitle() {
-		if(positionTitle != null) {
-			return;
-		}
-		positionTitle = baseProducer.trueOrFalse() ? StringUtils.substringBefore(position, "(") : "";
-	}
-
-	public void generateLocalJobTitle() {
-		if(localJobTitle != null) {
-			return;
-		}
-		if(positionTitle == "") {
-			localJobTitle = StringUtils.substringBefore(position, "(");
-		} else {
-			localJobTitle = "";
-		}
+		if (Globals.settings.isIncumbent()) {
+			incumbent = "";
+		} else incumbent = "";
 		
 	}
 
+	public void generatePosition() {
+		if (Globals.settings.isPosition()) {
+			position = StringUtils.substringBetween(dataMaster.getRandomValue(POSITION), "(", ")"); 
+		} else position = "";
+		
+	}
+
+	public void generatePositionEntryDate() {
+		if (Globals.settings.isPositionEntrydate()) {
+			positionEntryDate = dateProducer.randomDateBetweenTwoDates(jobEntryDate, LocalDate.now().minusDays(1));
+		} else positionEntryDate = LocalDate.MIN;
+	}
+
+	public void generateCompany() {
+		if(Globals.settings.isCompany()) {
+			company = dataMaster.getRandomValue(COMPANY);
+		} else company = "";
+	}
+
+	public void generateBusinessUnit() {
+		if(Globals.settings.isBusinessUnit()) {
+			businessUnit = dataMaster.getRandomValue(BUSINESS_UNIT);
+		} else businessUnit = "";
+	}
+
+	public void generateDivision() {
+		if(Globals.settings.isDivision()) {
+			division = dataMaster.getRandomValue(DIVISION);		
+		} else division = "";
+	}
+
+	public void generateDepartment() {
+		if(Globals.settings.isDepartment()) {
+			department = dataMaster.getRandomValue(DEPARTMENT);		
+		} else department = "";
+	}
+
+	public void generateLocation() {
+		if(Globals.settings.isLocation()) {
+			location = dataMaster.getRandomValue(LOCATION);		
+		} else location = "";
+	}
+
+	public void generateCostcenter() {
+		if(Globals.settings.isCostCenter()) {
+			costCenter = dataMaster.getRandomValue(COSTCENTER);		
+		} else costCenter = "";
+	}
+
+	public void generateTimezone() {
+		if(Globals.settings.isTimeZone()) {
+			// Maybe generated -> TrueOrFalse()
+			//TODO: implement logic
+			timezone = "";
+		} else timezone = "";
+		
+	}
+
+	public void generateSupervisor() {
+		if(Globals.settings.isSupervisor()) {
+			if (!Globals.Employees.isEmpty()) {
+				int index = baseProducer.randomBetween(0, Globals.Employees.size()-1);
+				supervisor = Globals.Employees.get(index).getEmployeeID().toString();
+			} else supervisor = "";	
+		} else supervisor = "";
+	}
+
+	public void generateJobClassification() {
+		if(Globals.settings.isJobClassification()) {
+			jobClassification = dataMaster.getRandomValue(JOB_CLASSIFICATION);
+		} else jobClassification = "";
+	}
+
+	public void generatePositionTitle() {
+		if(Globals.settings.isPositionTitle()) {
+			positionTitle = baseProducer.trueOrFalse() ? StringUtils.substringBefore(position, "(") : "";
+		} else positionTitle = "";
+	}
+
+	public void generateLocalJobTitle() {
+		if(Globals.settings.isLocalJobTitle()) {
+			if(positionTitle == "") {
+				localJobTitle = StringUtils.substringBefore(position, "(");
+			} else localJobTitle = "";		
+		} else localJobTitle = "";
+	}
+
 	public void generatePayGrade() {
-		if(payGrade != null) {
-			return;
-		}
-		payGrade = dataMaster.getRandomValue(PAYGRADE);
+		if(Globals.settings.isPayGrade()) {
+			payGrade = dataMaster.getRandomValue(PAYGRADE);
+		} else payGrade = "";
 	}
 
 	public void generateIsRegular() {
-		isRegular = baseProducer.trueOrFalse();
+		if(Globals.settings.isRegular()) {
+			isRegular = baseProducer.trueOrFalse();
+		} else isRegular = false;
 	}
 
 	public void generateStandardWeeklyHours() {
-		if(standardWeeklyHours != null) {
-			return;
-		}
-		standardWeeklyHours = baseProducer.randomBetween(Integer.parseInt(dataMaster.getRandomValue(MIN_HOURS)), 
-						Integer.parseInt(dataMaster.getRandomValue(MAX_HOURS)));
+		if(Globals.settings.isStandardWeeklyHours()) {
+			standardWeeklyHours = baseProducer.randomBetween(Integer.parseInt(dataMaster.getRandomValue(MIN_HOURS)), 
+					Integer.parseInt(dataMaster.getRandomValue(MAX_HOURS)));
+		} else standardWeeklyHours = 0;
 	}
 
 	public void generateFTE() {
-		if(fte != null) {
-			return;
-		}
-		fte = Double.parseDouble(dataMaster.getRandomValue(FTE));
+		if(Globals.settings.isFte()) {
+			fte = Double.parseDouble(dataMaster.getRandomValue(FTE));
+		} else fte = 0.00;
 	}
 
 	public void generateIsFullTime() {
-		isFulltime = baseProducer.trueOrFalse();
+		if(Globals.settings.isFulltime()) {
+			isFulltime = baseProducer.trueOrFalse();
+		} else isFulltime = false;
 	}
 
 	public void generateEmployeeClass() {
-		if (employeeClass != null) {
-			return;
-		}
-		employeeClass = dataMaster.getRandomValue(EMPLOYEE_CLASS);
+		if(Globals.settings.isEmployeeClass()) {
+			employeeClass = dataMaster.getRandomValue(EMPLOYEE_CLASS);
+		} else employeeClass = "";
 	}
 
 	public void generateShiftCode() {
-		if(shiftCode != null) {
-			return;
-		}
-		shiftCode = dataMaster.getRandomValue(SHIFT_CODE);
+		if(Globals.settings.isShiftCode()) {
+			shiftCode = dataMaster.getRandomValue(SHIFT_CODE);
+		} else shiftCode = "";
 	}
 
 	public void generateFslaStatus() {
-		if(FSLA_status != null) {
-			return;
-		}
-		FSLA_status = baseProducer.trueOrFalse() ? dataMaster.getRandomValue(FSLA_STATUS) : "";
+		if(Globals.settings.isFslaStatus()) {
+			FSLA_status = baseProducer.trueOrFalse() ? dataMaster.getRandomValue(FSLA_STATUS) : "";
+		} else FSLA_status = "";
 	}
 
 	public void generateJobEntryDate() {
-		if (jobEntryDate != null) {
-			return;
-		}
-		jobEntryDate = dateProducer.randomDateBetweenTwoDates(dateOfBirth.plusYears(18).minusDays(1), LocalDate.now().minusDays(1));
+		if(Globals.settings.isJobEntryDate()) {
+			if (dateOfBirth.isAfter(LocalDate.parse(dataMaster.getRandomValue(MIN_JOB_ENTRY)))){
+				jobEntryDate = dateProducer.randomDateBetweenTwoDates(dateOfBirth.plusYears(18).minusDays(1), LocalDate.now().minusDays(1));
+			} else {
+				jobEntryDate = dateProducer.randomDateBetweenTwoDates(LocalDate.parse(dataMaster.getRandomValue(MIN_JOB_ENTRY)).minusDays(1),
+						LocalDate.now().minusDays(1));
+			}
+			
+		} else jobEntryDate = null;
 	}
 
 	public void generateLeaveOfAbsenceStartDate() {
-		if(leaveOfAbsenceStartDate != null) {
-			return;
+		if(Globals.settings.isLeaveOfAbsenceStartDate()) {
+			loaDate = dateProducer.randomDateBetweenTwoDates(positionEntryDate.plusDays(1), LocalDate.now());
+			leaveOfAbsenceStartDate = baseProducer.trueOrFalse() ? loaDate.toString() : "";	
+		} else {
+			loaDate = null;
+			leaveOfAbsenceStartDate = "";
 		}
-		loaDate = dateProducer.randomDateBetweenTwoDates(positionEntryDate.plusDays(1), LocalDate.now());
-		leaveOfAbsenceStartDate = baseProducer.trueOrFalse() ? loaDate.toString() : "";
 	}
 
 	public void generateLeaveOfAbsenceEndDate() {
-		if(leaveOfAbsenseReturnDate != null) {
-			return;
-		}
-		if(leaveOfAbsenceStartDate != "")	{
-			leaveOfAbsenseReturnDate = dateProducer.randomDateBetweenTwoDates(loaDate.plusDays(1), LocalDate.now().plusDays(14)).toString();
-		} else {
-			leaveOfAbsenseReturnDate = "";
-		}
+		if(Globals.settings.isLeaveOfAbsenceReturnDate()){
+			if(leaveOfAbsenceStartDate != "")	{
+				leaveOfAbsenceReturnDate = dateProducer.randomDateBetweenTwoDates(loaDate.plusDays(1), LocalDate.now().plusDays(14)).toString();
+			} else {
+				leaveOfAbsenceReturnDate = "";
+			}	
+		} else leaveOfAbsenceReturnDate = "";
 	}
 
 	public void generateLmsJobCodeID() {
-		if (LMS_jobCodeID != null) {
-			return;
-		}
-		// TODO:Get complementary data instead of (3000, 5000)
-		LMS_jobCodeID = baseProducer.randomBetween(3000, 5000);
+		if(Globals.settings.isLmsJobCodeID()) {
+			// TODO:Get complementary data instead of (3000, 5000)
+			LMS_jobCodeID = baseProducer.randomBetween(3000, 5000);	
+		} else LMS_jobCodeID = 0;
 	}
 
 	public void generateEeoJobGroup() {
-		if(EEO_jobGroup != null) {
-			return;
-		}
-		EEO_jobGroup = baseProducer.trueOrFalse() ? dataMaster.getRandomValue(EEO_JOB_GROUP) : "";
+		if(Globals.settings.isEeoJobGroup()) {
+			EEO_jobGroup = baseProducer.trueOrFalse() ? dataMaster.getRandomValue(EEO_JOB_GROUP) : "";
+		} else EEO_jobGroup = "";
 	}
 
 	public void generateEeoCategory1() {
-		if(EEO_category1 != null) {
-			return;
-		}
-		EEO_category1 = baseProducer.trueOrFalse() ? dataMaster.getRandomValue(EEO_CATEGORY1) : "";
+		if(Globals.settings.isEeoCategory1()) {
+			EEO_category1 = baseProducer.trueOrFalse() ? dataMaster.getRandomValue(EEO_CATEGORY1) : "";
+		} else EEO_category1 = "";
 	}
 
 	public void generateEeoCategory4() {
-		if(EEO_category4 != null) {
-			return;
-		}
-		EEO_category4 = baseProducer.trueOrFalse() ? dataMaster.getRandomValue(EEO_CATEGORY4) : "";
+		if(Globals.settings.isEeoCategory4()) {
+			EEO_category4 = baseProducer.trueOrFalse() ? dataMaster.getRandomValue(EEO_CATEGORY4) : "";
+		} else EEO_category4 = "";
 	}
 
 	public void generateEeoCategory5() {
-		if(EEO_category5 != null) {
-			return;
-		}
-		EEO_category5 = baseProducer.trueOrFalse() ? dataMaster.getRandomValue(EEO_CATEGORY5) : "";
+		if(Globals.settings.isEeoCategory5()) {
+			EEO_category5 = baseProducer.trueOrFalse() ? dataMaster.getRandomValue(EEO_CATEGORY5) : "";
+		} else EEO_category5 = "";
 	}
 
 	public void generateEeoCategory6() {
-		if(EEO_category6 != null) {
-			return;
-		}
-		EEO_category6 = baseProducer.trueOrFalse() ? dataMaster.getRandomValue(EEO_CATEGORY6) : "";
+		if(Globals.settings.isEeoCategory6()) {
+			EEO_category6 = baseProducer.trueOrFalse() ? dataMaster.getRandomValue(EEO_CATEGORY6) : "";
+		} else EEO_category6 = "";
 	}
 
 	public void setIncumbent(String incumbent) {
@@ -488,8 +473,8 @@ public class JobProvider implements Provider<Job>{
 		
 	}
 
-	public void setLeaveOfAbsenseReturnDate(String leaveOfAbsenseReturnDate) {
-		 this.leaveOfAbsenseReturnDate = leaveOfAbsenseReturnDate;
+	public void setLeaveOfAbsenceReturnDate(String leaveOfAbsenceReturnDate) {
+		 this.leaveOfAbsenceReturnDate = leaveOfAbsenceReturnDate;
 		
 	}
 
