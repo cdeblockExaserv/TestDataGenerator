@@ -50,7 +50,7 @@ public class TestDataGenerator {
 		TransformerFactory transformerFactory = TransformerFactory.newInstance();
 		Transformer transformer = transformerFactory.newTransformer();
 		DOMSource domSource = new DOMSource(doc);
-		StreamResult result = new StreamResult(new File("OutputFiles/TestDataOutput" + dateFormat.format(timestamp).toString() + ".xml"));
+		StreamResult result = new StreamResult(new File("src/main/resources/OutputFiles/TestDataOutput" + dateFormat.format(timestamp).toString() + ".xml"));
 		transformer.transform(domSource, result);
 		generateCSV("Bio", transformer, dateFormat, timestamp);
 		generateCSV("Address", transformer, dateFormat, timestamp);
@@ -75,7 +75,7 @@ public class TestDataGenerator {
 	
 	public static void generateCSV(String tag, Transformer transformer, SimpleDateFormat dateFormat, Date timestamp) throws Throwable { //CSV
 		File stylesheet = new File("src/main/resources/style" + tag + ".xsl");
-		File xmlSource = new File("OutputFiles/TestDataOutput" + dateFormat.format(timestamp).toString() + ".xml");
+		File xmlSource = new File("src/main/resources/OutputFiles/TestDataOutput" + dateFormat.format(timestamp).toString() + ".xml");
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
         Document document = builder.parse(xmlSource);
@@ -83,7 +83,7 @@ public class TestDataGenerator {
         transformer = TransformerFactory.newInstance()
                 .newTransformer(stylesource);
         Source source = new DOMSource(document);
-        Result outputTarget = new StreamResult(new File("OutputFiles/TestDataOutput_" + tag + dateFormat.format(timestamp).toString() +".csv"));
+        Result outputTarget = new StreamResult(new File("src/main/resources/OutputFiles/TestDataOutput_" + tag + dateFormat.format(timestamp).toString() +".csv"));
         transformer.transform(source, outputTarget);
 	}
 	
