@@ -56,7 +56,7 @@ public class EmergencyContact {
 			mail = person.getEmail();
 		} else mail = "";
 		if (Globals.settings.isEmergencyPhone()) {
-			telephone = dataMaster.getRandomValue(COUNTRY_CODE) + " " + person.getTelephoneNumber();
+			telephone = dataMaster.getRandomValue(COUNTRY_CODE) + " " + Globals.area + person.getTelephoneNumber();
 		} else telephone = "";
 		if (Globals.settings.isEmergencyIsPrimary()) {
 			//TODO: implement when multiple are created

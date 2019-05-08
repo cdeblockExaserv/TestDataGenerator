@@ -67,7 +67,7 @@ public class PhoneProvider implements Provider<Phone>{
 	private void generatePhoneNumber() {
 		if (Globals.settings.isPhoneNumber()) {
 			String telephoneNumberFormat = dataMaster.getRandomValue(PHONE_FORMAT);
-			phoneNumber = countryCode + " " + areaCode + "-" + baseProducer.numerify(telephoneNumberFormat).toString();
+			phoneNumber = countryCode + " " + Globals.area + baseProducer.numerify(telephoneNumberFormat).toString();
 			if (!extension.equals("")) phoneNumber += " Ext. " + extension;
 		} else {
 			phoneNumber = "";
@@ -85,8 +85,7 @@ public class PhoneProvider implements Provider<Phone>{
 	
 	private void generateAreaCode() {
 		if (Globals.settings.isCountryCode()) {
-			//TODO: Implement areaCode here from datafiles (address)
-			areaCode = "123";
+			areaCode = Globals.area.replaceFirst("-", "");
 		} else {
 			areaCode = "";
 		}

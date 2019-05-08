@@ -1,6 +1,9 @@
 package com.deets.test_automation.test_data_generator.Job;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Random;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -45,6 +48,8 @@ public class JobProvider implements Provider<Job>{
 	String FSLA_STATUS = "fslaStatus";
 	@VisibleForTesting
 	String MIN_JOB_ENTRY = "minJobEntryDate";
+	@VisibleForTesting
+	String MIN_POSITION_ENTRY = "minPositionEntryDate";
 	@VisibleForTesting
 	String EEO_JOB_GROUP = "eeoJobGroups";
 	@VisibleForTesting
@@ -163,7 +168,13 @@ public class JobProvider implements Provider<Job>{
 
 	public void generatePositionEntryDate() {
 		if (Globals.settings.isPositionEntrydate()) {
-			positionEntryDate = dateProducer.randomDateBetweenTwoDates(jobEntryDate, LocalDate.now().minusDays(1));
+			if (jobEntryDate.isAfter(LocalDate.parse(dataMaster.getRandomValue(MIN_POSITION_ENTRY)))){
+				positionEntryDate = dateProducer.randomDateBetweenTwoDates(jobEntryDate, LocalDate.now().minusDays(1));
+			} else {
+				positionEntryDate = dateProducer.randomDateBetweenTwoDates(LocalDate.parse(dataMaster.getRandomValue(MIN_POSITION_ENTRY)),
+						LocalDate.now().minusDays(1));
+			}
+			
 		} else positionEntryDate = LocalDate.MIN;
 	}
 
@@ -205,9 +216,9 @@ public class JobProvider implements Provider<Job>{
 
 	public void generateTimezone() {
 		if(Globals.settings.isTimeZone()) {
-			// Maybe generated -> TrueOrFalse()
-			//TODO: implement logic
-			timezone = "";
+			ArrayList<String> timezones = new ArrayList<String>(Arrays.asList(Globals.timezone.split("/")));
+			Random r = new Random();
+			timezone = timezones.get(r.nextInt(timezones.size()));
 		} else timezone = "";
 		
 	}

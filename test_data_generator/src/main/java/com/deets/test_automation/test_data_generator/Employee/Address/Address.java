@@ -5,8 +5,8 @@ public interface Address{
 	String getStreet();
 	String getStreetNumber();
 	String getApartmentNumber();
-	String getPostalCode();
 	String getCity();
+	String getPostalCode();
 	String getAddressLine1();
 	String getAddressLine2();
 	String getCountry();

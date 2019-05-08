@@ -17,6 +17,7 @@ data:
   minAge: ['18']
   maxAge: ['75']
   minJobEntryDate: ['1997-05-18']
+  minPositionEntryDate: ['1997-05-18']
   maritalStates: [Married, Single, Divorced, Widowed, Separated, Registered Partnership]
   nativePreferedLanguages: [English, French]
   emailTypes: [Personal, Business]

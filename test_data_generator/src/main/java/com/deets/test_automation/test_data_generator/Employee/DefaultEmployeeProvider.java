@@ -1,15 +1,11 @@
 package com.deets.test_automation.test_data_generator.Employee;
 
-import java.io.File;
+
 import java.time.LocalDate;
 import java.util.ArrayList; 
 import javax.inject.Inject;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
 import com.deets.test_automation.test_data_generator.Dictionary;
 import com.deets.test_automation.test_data_generator.Globals;
-import com.deets.test_automation.test_data_generator.SettingsPage;
 import com.deets.test_automation.test_data_generator.Dependent.Dependent;
 import com.deets.test_automation.test_data_generator.Dependent.DependentProvider;
 import com.deets.test_automation.test_data_generator.Employee.Address.Address;
@@ -72,8 +68,6 @@ public class DefaultEmployeeProvider implements EmployeeProvider {
 	protected final AddressProvider addressProvider;
 	protected final JobProvider JobProvider;
 	protected final Dictionary dictionary;
-	protected JAXBContext context;
-	protected Unmarshaller unmarshaller;
 	
 	private ArrayList<String> numbers = new ArrayList<String>();
 
@@ -94,14 +88,6 @@ public class DefaultEmployeeProvider implements EmployeeProvider {
 		this.emailProvider = emailProvider;
 		this.phoneProvider = phoneProvider;
 		dictionary = new Dictionary();
-		try {
-			context = JAXBContext.newInstance(SettingsPage.class);
-			unmarshaller = context.createUnmarshaller();
-			Globals.settings = (SettingsPage) unmarshaller.unmarshal(new File("src/main/resources/toGenerate.xml"));
-			
-		} catch (JAXBException e) {
-			e.printStackTrace();
-		}
 		
 		for (EmployeeProperties.EmployeeProperty employeeProperty : employeeProperties) {
 			employeeProperty.apply(this, baseProducer);
@@ -143,57 +129,65 @@ public class DefaultEmployeeProvider implements EmployeeProvider {
 	
 	public void generateAge() {
 		
-		if (!Globals.settings.isAge()) { return; }
+		if (!Globals.settings.isAge()) { return; } else {
 		age = baseProducer.randomBetween(Integer.valueOf(dataMaster.getRandomValue(MIN_AGE)),
 				Integer.valueOf(dataMaster.getRandomValue(MAX_AGE)));		
+		}
 	}
 	public void generateDateOfBirth() {
 	
-		if (!Globals.settings.isDateOfBirth()) { return; }
+		if (!Globals.settings.isDateOfBirth()) { return; } else {
 		if (age == null) { return; }
 			LocalDate maxDate = LocalDate.now().minusYears(age);
 			LocalDate minDate = maxDate.minusYears(1).plusDays(1);
 			dateOfBirth = dateProducer.randomDateBetweenTwoDates(minDate, maxDate);
+		}
 	}
 	public void generateSuffix() {
 		
-		if (!Globals.settings.isSuffix()) { suffix = ""; }
+		if (!Globals.settings.isSuffix()) { suffix = ""; } else {
 		
 		suffix = baseProducer.trueOrFalse() ? dataMaster.getRandomValue(SUFFIX) : "";
+		}
 	}
 	public void generateMaritalStatus() {
 	
-		if (!Globals.settings.isMaritalStatus()) { maritalStatus = ""; }
+		if (!Globals.settings.isMaritalStatus()) { maritalStatus = ""; } else {
 		
 		maritalStatus = dataMaster.getRandomValue(MARITAL_STATUS);
+		}
 	}
 	public void generateNativePreferedLanguage() {
 
-		if (!Globals.settings.isNativePreferedLanguage()) { nativePreferedLanguage = ""; }
+		if (!Globals.settings.isNativePreferedLanguage()) { nativePreferedLanguage = ""; } else {
 		
 		nativePreferedLanguage = dataMaster.getRandomValue(NATIVE_PREFERED_LANGUAGE);
+		}
 	}
 	public void generateDisplayName() {
 
-		if (!Globals.settings.isDisplayName()) { displayName = ""; }
+		if (!Globals.settings.isDisplayName()) { displayName = ""; } else {
 		
 		//With or without prefix/suffix?
 		displayName = prefix + " " + person.getFullName() + " " + suffix;
+		}
 	}
 	public void generatePreferedName() {
 
 		// New firstname -> true/false
 		if (!Globals.settings.isPreferedName()) {
 			preferedName = "";
-		}
+		} else {
 		
 		preferedName = baseProducer.trueOrFalse() ? dataMaster.getValuesOfType(FIRST_NAME, person.getSex().name(), String.class) : "";
+		}
 	}
 	public void generateBirthName() {
 	
-		if (!Globals.settings.isBirthName()) { birthName = ""; }
+		if (!Globals.settings.isBirthName()) { birthName = ""; } else {
 		
 		birthName = prefix + " " + person.getFirstName() + " " + person.getMiddleName() + " " + person.getLastName() + " " + suffix;
+		}
 	}
 	public void generatePrefix() {
 
@@ -207,11 +201,12 @@ public class DefaultEmployeeProvider implements EmployeeProvider {
 
 		if (!Globals.settings.isMaritalStatus()) {
 			return;
-		}
-		if (dictionary.getMaritalStateValue(maritalStatus) == "Single") {
-			maritalStatusSince = dateOfBirth;
 		} else {
-			maritalStatusSince = dateProducer.randomDateBetweenTwoDates(dateOfBirth.plusYears(18).minusDays(1), LocalDate.now());
+			if (dictionary.getMaritalStateValue(maritalStatus) == "Single") {
+				maritalStatusSince = dateOfBirth;
+			} else {
+				maritalStatusSince = dateProducer.randomDateBetweenTwoDates(dateOfBirth.plusYears(18).minusDays(1), LocalDate.now());
+			}
 		}
 	}
 	public void generateDependent() {

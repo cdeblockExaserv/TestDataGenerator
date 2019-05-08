@@ -1,14 +1,16 @@
 package com.deets.test_automation.test_data_generator.Employee.Address;
 
+import org.apache.commons.csv.CSVRecord;
+import java.util.Random;
+
 import com.deets.test_automation.test_data_generator.Globals;
 import com.devskiller.jfairy.data.DataMaster;
 import com.devskiller.jfairy.producer.BaseProducer;
 import com.google.common.annotations.VisibleForTesting;
 
+
 public abstract class AbstractAddressProvider implements AddressProvider{
 	
-	@VisibleForTesting
-	private static final String POSTAL_CODE_FORMAT = "postal_code";
 	@VisibleForTesting
 	private static final String CITY = "city";
 	@VisibleForTesting
@@ -17,16 +19,24 @@ public abstract class AbstractAddressProvider implements AddressProvider{
 	private static final String COUNTRY = "country";
 	@VisibleForTesting
 	private static final String ADDRESS_TYPE = "addressType";
-	@VisibleForTesting
-	private static final String STATE = "states";
+	
 
 	protected final BaseProducer baseProducer;
-
 	protected final DataMaster dataMaster;
+	private Integer start;
+	private Integer end;
+	
+	private CSVRecord csvRecord;
 
-	public AbstractAddressProvider(DataMaster dataMaster, BaseProducer baseProducer) {
+	public AbstractAddressProvider(DataMaster dataMaster, BaseProducer baseProducer){
 		this.baseProducer = baseProducer;
 		this.dataMaster = dataMaster;
+		Random random = new Random();
+		csvRecord = Globals.list.get(random.nextInt(Globals.list.size()));
+		start = Integer.valueOf(csvRecord.get(1).toString());
+		end = Integer.valueOf(csvRecord.get(2).toString());
+		Globals.area = !csvRecord.get(3).isEmpty() ? csvRecord.get(3).toString() + "-" : "";
+		Globals.timezone = csvRecord.get(4);
 	}
 
 	public String getCountry() {
@@ -41,11 +51,10 @@ public abstract class AbstractAddressProvider implements AddressProvider{
 		} else return "";
 	}
 	
-	public String getState() {
-		//TODO: Fix when file to load in
+	public String getState(){
 		if (Globals.settings.isState()) {
-		return dataMaster.getRandomValue(STATE);
-		} else return "Minnesota";
+			return csvRecord.get(0).toString();
+		} else return "";
 	}
 
 	public String getCity() {
@@ -56,8 +65,7 @@ public abstract class AbstractAddressProvider implements AddressProvider{
 
 	public String getPostalCode() {
 		if (Globals.settings.isZipcode()) {
-			String postalCodeFormat = dataMaster.getRandomValue(POSTAL_CODE_FORMAT);
-			return baseProducer.numerify(postalCodeFormat);
+			return Integer.toString(baseProducer.randomBetween(start, end));
 		} else return "";
 	}
 

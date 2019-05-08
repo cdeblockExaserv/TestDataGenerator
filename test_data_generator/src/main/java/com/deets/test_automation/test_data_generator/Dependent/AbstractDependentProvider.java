@@ -41,7 +41,7 @@ public abstract class AbstractDependentProvider implements DependentProvider{
 			} else if (relationship_en == "Child") {
 				return dateProducer.randomDateBetweenTwoDates(dateOfBirth.plusYears(18), LocalDate.now());
 			} else {
-				return dateProducer.randomDateInThePast(110).toLocalDate();
+				return dateProducer.randomDateInThePast(75).toLocalDate();
 			}
 		} else { return null; }
 		
@@ -78,14 +78,16 @@ public abstract class AbstractDependentProvider implements DependentProvider{
 	}
 	
 	public String getMiddleName() {
-		if (Globals.settings.isDependentMiddleName()) {
-			return person.getMiddleName();
-		} else return "";	}
+			if (Globals.settings.isDependentMiddleName()) {
+				return person.getMiddleName();
+			} else return "";	
+		}
 	
 	public String getLastName() {
-		if (Globals.settings.isDependentLastName()) {
-			return person.getLastName();
-		} else return "";	}
+			if (Globals.settings.isDependentLastName()) {
+				return person.getLastName();
+			} else return "";	
+		}
 
 	public abstract Dependent get(LocalDate dateOfBirth);
 

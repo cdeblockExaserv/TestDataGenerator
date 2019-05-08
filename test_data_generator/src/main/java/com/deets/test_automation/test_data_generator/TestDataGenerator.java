@@ -3,11 +3,15 @@ package com.deets.test_automation.test_data_generator;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.Result;
@@ -22,6 +26,7 @@ import org.w3c.dom.Document;
 
 import com.deets.test_automation.test_data_generator.Employee.Employee;
 import com.deets.test_automation.test_data_generator.Fairy.Fairy;
+
 
 public class TestDataGenerator {
 	DocumentBuilderFactory docFactory;
@@ -42,6 +47,17 @@ public class TestDataGenerator {
 		while (option) {
 			Integer employeesCount = generator.getEmployeesCount("Please enter the number of employees to be generated");
 			loc = generator.getLocale("Please choose the nationality of the employees");
+			Globals.readList();
+			try {
+				JAXBContext context;
+				Unmarshaller unmarshaller;
+				context = JAXBContext.newInstance(SettingsPage.class);
+				unmarshaller = context.createUnmarshaller();
+				Globals.settings = (SettingsPage) unmarshaller.unmarshal(TestDataGenerator.class.getClass().getResourceAsStream("/toGenerate.xml"));
+				
+			} catch (JAXBException e) {
+				e.printStackTrace();
+			}
 			for(int i=0;i<employeesCount;i++){
 				generator.generateEmployee(loc);
 			}
@@ -50,7 +66,9 @@ public class TestDataGenerator {
 		TransformerFactory transformerFactory = TransformerFactory.newInstance();
 		Transformer transformer = transformerFactory.newTransformer();
 		DOMSource domSource = new DOMSource(doc);
-		StreamResult result = new StreamResult(new File("src/main/resources/OutputFiles/TestDataOutput" + dateFormat.format(timestamp).toString() + ".xml"));
+		File output = new File("/OutputFiles/");
+		output.mkdir();
+		StreamResult result = new StreamResult(output + "/TestDataOutput" + dateFormat.format(timestamp).toString() + ".xml");
 		transformer.transform(domSource, result);
 		generateCSV("Bio", transformer, dateFormat, timestamp);
 		generateCSV("Address", transformer, dateFormat, timestamp);
@@ -74,8 +92,8 @@ public class TestDataGenerator {
 	}
 	
 	public static void generateCSV(String tag, Transformer transformer, SimpleDateFormat dateFormat, Date timestamp) throws Throwable { //CSV
-		File stylesheet = new File("src/main/resources/style" + tag + ".xsl");
-		File xmlSource = new File("src/main/resources/OutputFiles/TestDataOutput" + dateFormat.format(timestamp).toString() + ".xml");
+		InputStream stylesheet = TestDataGenerator.class.getClass().getResourceAsStream("/style" + tag + ".xsl");
+		File xmlSource = new File("/OutputFiles/TestDataOutput" + dateFormat.format(timestamp).toString() + ".xml");
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
         Document document = builder.parse(xmlSource);
@@ -83,7 +101,7 @@ public class TestDataGenerator {
         transformer = TransformerFactory.newInstance()
                 .newTransformer(stylesource);
         Source source = new DOMSource(document);
-        Result outputTarget = new StreamResult(new File("src/main/resources/OutputFiles/TestDataOutput_" + tag + dateFormat.format(timestamp).toString() +".csv"));
+        Result outputTarget = new StreamResult(/*new File("src/main/resources/*/"/OutputFiles/TestDataOutput_" + tag + dateFormat.format(timestamp).toString() +".csv");
         transformer.transform(source, outputTarget);
 	}
 	
@@ -111,7 +129,8 @@ public class TestDataGenerator {
 	public void generateBiographicalData(Employee employee,org.w3c.dom.Element employeeNode){
 		org.w3c.dom.Element segmentNode = appendChild(createElement("BiographicalData",""),employeeNode);
 		appendChild(createElement("EmployeeID",employee.getEmployeeID().toString()),segmentNode);
-		appendChild(createElement("DateOfBirth",employee.person.getDateOfBirth().toString()),segmentNode);
+		appendChild(createElement("Age",employee.getAge().toString()),segmentNode);
+		appendChild(createElement("DateOfBirth",employee.getDateOfBirth().toString()),segmentNode);
 		appendChild(createElement("FirstName",employee.person.getFirstName()),segmentNode);
 		appendChild(createElement("MiddleName",employee.person.getMiddleName()),segmentNode);
 		appendChild(createElement("LastName",employee.person.getLastName()),segmentNode);
@@ -189,6 +208,7 @@ public class TestDataGenerator {
 	public void generatePhone(Employee employee,org.w3c.dom.Element employeeNode){
 		org.w3c.dom.Element segmentNode = appendChild(createElement("Phone",""),employeeNode);
 		appendChild(createElement("CountryCode",employee.getPhone().getCountryCode()),segmentNode);
+		appendChild(createElement("AreaCode",employee.getPhone().getAreaCode()),segmentNode);
 		//appendChild(createElement("Extension",employee.getPersonalPhone().getExtension()),segmentNode); -> businessPhone only
 		appendChild(createElement("PhoneNumber",employee.getPhone().getPhoneNumber()),segmentNode);
 		appendChild(createElement("IsPrimary","true"),segmentNode);
@@ -298,31 +318,20 @@ public class TestDataGenerator {
 	}
 	
 	public void generateEmployee(Locale loc){
-		//Person person;
 		Employee employee;
 		if (loc == Locale.US) {
-			//person = Fairy.builder().withFilePrefix("us").build().person() ;
-			Globals.LOC = "us";
 			employee = Fairy.builder().withFilePrefix("us").build().employee();
 		} else if (loc == Locale.CANADA_FRENCH) {
-			//person = Fairy.builder().withFilePrefix("ca").build().person();
-			Globals.LOC = "ca";
 			employee = Fairy.builder().withFilePrefix("ca").build().employee();
 		}else if(loc == Locale.UK) { 
-			//person = Fairy.builder().withFilePrefix("uk").build().person();
-			Globals.LOC = "uk";
 			employee = Fairy.builder().withFilePrefix("uk").build().employee();
 		}else if(loc == Locale.FRANCE) {
-			//person = Fairy.builder().withFilePrefix("fr").build().person();
-			Globals.LOC = "fr";
 			employee = Fairy.builder().withFilePrefix("fr").build().employee();
 		}else {
-			//person = Fairy.builder().withFilePrefix("us").build().person();
 			Globals.LOC = "us";
 			employee = Fairy.builder().withFilePrefix("us").build().employee();
 		}
 		Globals.Employees.add(employee);
-		//Person person = Fairy.builder().withLocale(loc).withFilePrefix("test").build().person();
 		org.w3c.dom.Element employeeNode = appendChild(createElement("Employee",""),rootElementParent);
 		generateBiographicalData(employee,employeeNode);
 		generateAddress(employee,employeeNode);
@@ -380,15 +389,19 @@ public class TestDataGenerator {
 		switch(Integer.parseInt(inputLine)){
 		case 1:
 			loc = Locale.US;
+			Globals.LOC = "us";
 			break;
 		case 2:
 			loc = Locale.FRANCE;
+			Globals.LOC = "fr";
 			break;
 //		case 3:
 //			loc = Locale.UK;
+//			Globals.LOC = "uk";
 //			break;
 //		case 4:
 //			loc = Locale.CANADA_FRENCH;
+//			Globals.LOC = "ca";
 //			break;
 		default:
 			loc = Locale.US;

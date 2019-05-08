@@ -1,6 +1,5 @@
 package com.deets.test_automation.test_data_generator.Employee.Address;
 
-
 public abstract class AbstractAddress implements Address{
 	
 	protected String street;
@@ -12,12 +11,12 @@ public abstract class AbstractAddress implements Address{
 	protected String addressType;
 	protected String state;
 
-	public AbstractAddress(String street, String streetNumber, String apartmentNumber, String postalCode, String city,
+	public AbstractAddress(String street, String streetNumber, String apartmentNumber, String city, String postalCode,
 				String country, String addressType, String state) {
 		this.street = street;
 		this.streetNumber = streetNumber;
-		this.postalCode = postalCode;
 		this.city = city;
+		this.postalCode = postalCode;
 		this.apartmentNumber = apartmentNumber;
 		this.country = country;
 		this.addressType = addressType;
