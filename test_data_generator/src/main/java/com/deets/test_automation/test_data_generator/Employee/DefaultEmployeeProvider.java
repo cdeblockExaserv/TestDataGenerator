@@ -2,7 +2,9 @@ package com.deets.test_automation.test_data_generator.Employee;
 
 
 import java.time.LocalDate;
-import java.util.ArrayList; 
+import java.util.ArrayList;
+import java.util.Locale;
+
 import javax.inject.Inject;
 import com.deets.test_automation.test_data_generator.Dictionary;
 import com.deets.test_automation.test_data_generator.Globals;
@@ -14,6 +16,7 @@ import com.deets.test_automation.test_data_generator.Employee.Email.Email;
 import com.deets.test_automation.test_data_generator.Employee.Email.EmailProvider;
 import com.deets.test_automation.test_data_generator.Employee.EmergencyContact.EmergencyContact;
 import com.deets.test_automation.test_data_generator.Employee.NationalInfo.NationalInfo;
+import com.deets.test_automation.test_data_generator.Employee.NationalInfo.NationalInfoProvider;
 import com.deets.test_automation.test_data_generator.Employee.Phone.Phone;
 import com.deets.test_automation.test_data_generator.Employee.Phone.PhoneProvider;
 import com.deets.test_automation.test_data_generator.Fairy.Fairy;
@@ -30,7 +33,11 @@ public class DefaultEmployeeProvider implements EmployeeProvider {
 	protected String employeeID;
 	protected Integer age;
 	protected LocalDate dateOfBirth;
+	protected String firstName;
+	protected String middleName;
+	protected String lastName;
 	protected String suffix;
+	protected String gender;
 	protected String maritalStatus;
 	protected String nativePreferedLanguage;
 	protected String displayName;
@@ -66,6 +73,7 @@ public class DefaultEmployeeProvider implements EmployeeProvider {
 	protected final PhoneProvider phoneProvider;
 	protected final DependentProvider dependentProvider;
 	protected final AddressProvider addressProvider;
+	protected final NationalInfoProvider nationalInfoProvider;
 	protected final JobProvider JobProvider;
 	protected final Dictionary dictionary;
 	
@@ -74,7 +82,8 @@ public class DefaultEmployeeProvider implements EmployeeProvider {
 	@Inject
 	public DefaultEmployeeProvider(BaseProducer baseProducer, DataMaster dataMaster,
 			DateProducer dateProducer, DependentProvider dependentProvider,
-			AddressProvider addressProvider, JobProvider JobProvider,
+			AddressProvider addressProvider, NationalInfoProvider nationalInfoProvider,
+			JobProvider JobProvider,
 			EmailProvider emailProvider, PhoneProvider phoneProvider,
 			@Assisted EmployeeProperties.EmployeeProperty... employeeProperties) {
 		
@@ -84,6 +93,7 @@ public class DefaultEmployeeProvider implements EmployeeProvider {
 		this.dateProducer = dateProducer;
 		this.dependentProvider = dependentProvider;
 		this.addressProvider = addressProvider;
+		this.nationalInfoProvider = nationalInfoProvider;
 		this.JobProvider = JobProvider;
 		this.emailProvider = emailProvider;
 		this.phoneProvider = phoneProvider;
@@ -100,12 +110,16 @@ public class DefaultEmployeeProvider implements EmployeeProvider {
 	}
 	
 	public Employee get() {
-		this.person = Fairy.builder().withFilePrefix(Globals.LOC).build().person();
+		this.person = Fairy.builder().withFilePrefix("data").withLocale(Locale.forLanguageTag(Globals.LOC)).build().person();
 		
+		generateFirstName();
+		generateMiddleName();
+		generateLastName();
 		generateAge();
 		generateDateOfBirth();
 		generatePrefix();
 		generateSuffix();
+		generateGender();
 		generateMaritalStatus();
 		generateNativePreferedLanguage();
 		generateDisplayName();
@@ -121,21 +135,43 @@ public class DefaultEmployeeProvider implements EmployeeProvider {
 		generateJob();
 		generateCustomFields();
 		
-		return new Employee(age, dateOfBirth, suffix, maritalStatus, nativePreferedLanguage, displayName, preferedName,
+		return new Employee(age, dateOfBirth,firstName, middleName, lastName, suffix, maritalStatus, nativePreferedLanguage, displayName, preferedName,
 				birthName, prefix, maritalStatusSince, person, nationalInfo, dependent, email,
 				phone, emergencyContact, address, job, customField1, customField2, customField3, customField4,
 				customField5, customField6, customField7, customField8, customField9, customField10, dataMaster);
 	}
 	
+	public void generateFirstName() {
+		if (!Globals.settings.isFirstName()) { 
+			firstName = Globals.demo.getFirstName(); 
+		} else {
+			firstName = person.getFirstName();
+		}
+	}
+	
+	public void generateMiddleName() {
+		if (!Globals.settings.isMiddleName()) { 
+			middleName = Globals.demo.getMiddleName(); 
+		} else {
+			middleName = person.getMiddleName();
+		}
+	}
+	
+	public void generateLastName() {
+		if (!Globals.settings.isLastName()) { 
+			lastName = Globals.demo.getLastName(); 
+		} else {
+			lastName = person.getLastName();
+		}
+	}
+
 	public void generateAge() {
-		
 		if (!Globals.settings.isAge()) { return; } else {
 		age = baseProducer.randomBetween(Integer.valueOf(dataMaster.getRandomValue(MIN_AGE)),
 				Integer.valueOf(dataMaster.getRandomValue(MAX_AGE)));		
 		}
 	}
 	public void generateDateOfBirth() {
-	
 		if (!Globals.settings.isDateOfBirth()) { return; } else {
 		if (age == null) { return; }
 			LocalDate maxDate = LocalDate.now().minusYears(age);
@@ -145,16 +181,26 @@ public class DefaultEmployeeProvider implements EmployeeProvider {
 	}
 	public void generateSuffix() {
 		
-		if (!Globals.settings.isSuffix()) { suffix = ""; } else {
-		
-		suffix = baseProducer.trueOrFalse() ? dataMaster.getRandomValue(SUFFIX) : "";
+		if (!Globals.settings.isSuffix()) { 
+			suffix = Globals.demo.getSuffix();
+		} else {
+			suffix = baseProducer.trueOrFalse() ? dataMaster.getRandomValue(SUFFIX) : "";
 		}
 	}
+	
+    public void generateGender() {
+    	if (!Globals.settings.isGender()) { 
+			gender = Globals.demo.getGender(); 
+		} else {
+			gender = person.getSex().toString();
+		}
+    }
+	
 	public void generateMaritalStatus() {
 	
 		if (!Globals.settings.isMaritalStatus()) { maritalStatus = ""; } else {
 		
-		maritalStatus = dataMaster.getRandomValue(MARITAL_STATUS);
+			maritalStatus = dataMaster.getRandomValue(MARITAL_STATUS);
 		}
 	}
 	public void generateNativePreferedLanguage() {
@@ -213,11 +259,11 @@ public class DefaultEmployeeProvider implements EmployeeProvider {
 		dependent = dependentProvider.get(dateOfBirth);
 	}
 	public void generateEmail() {
-		email = emailProvider.get(person);
+		email = emailProvider.get(firstName, lastName);
 	}
 	
 	public void generateNationalInfo() {
-		nationalInfo = new NationalInfo(person, dataMaster);
+		nationalInfo = nationalInfoProvider.get(person.getSex(), dateOfBirth);
 	}
 
 	public void generatePhone() {

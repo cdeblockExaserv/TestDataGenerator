@@ -7,7 +7,6 @@ import com.deets.test_automation.test_data_generator.Globals;
 import com.devskiller.jfairy.data.DataMaster;
 import com.devskiller.jfairy.producer.BaseProducer;
 import com.devskiller.jfairy.producer.DateProducer;
-import com.devskiller.jfairy.producer.person.Person;
 import com.devskiller.jfairy.producer.util.TextUtils;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.inject.Inject;
@@ -25,7 +24,8 @@ public class EmailProvider implements Provider<Email>{
 	protected String emailAddress;
 	protected String type;
 	protected boolean isPrimary;
-	protected Person person;
+	protected String firstName;
+	protected String lastName;
 	
 	protected final BaseProducer baseProducer;
 	protected final DataMaster dataMaster;
@@ -42,12 +42,11 @@ public class EmailProvider implements Provider<Email>{
 		this.dictionary = dictionary;		
 	}
 	
-	public Email get() {
-		return null;
-	}
 	
-	public Email get(Person person) {
-		this.person = person;
+	
+	public Email get(String firstName, String lastName) {
+		this.firstName = firstName;
+		this.lastName = lastName;
 		
 		generateType();
 		generateEmailAddress();
@@ -75,15 +74,14 @@ public class EmailProvider implements Provider<Email>{
 		if (Globals.settings.isEmailAddress()) {
 			if (type != "") {
 				if (dictionary.getEmailTypeValue(type) == "Personal") {
-					emailAddress = TextUtils.stripAccents(lowerCase(person.getFirstName() + '.' + person.getLastName() +
+					emailAddress = TextUtils.stripAccents(lowerCase(firstName + '.' + lastName +
 							'@' + dataMaster.getRandomValue(PERSONAL_EMAIL))).replaceAll(" ", "");
 				} else if (dictionary.getEmailTypeValue(type) == "Business") {
-					emailAddress = TextUtils.stripAccents(lowerCase(person.getFirstName() + '.' + person.getLastName() +
+					emailAddress = TextUtils.stripAccents(lowerCase(firstName + '.' + lastName +
 							'@' + dataMaster.getRandomValue(COMPANY_EMAIL))).replaceAll(" ", "");
 				}
 			} else { //TODO: implement real solution when file is loaded in
-				emailAddress = TextUtils.stripAccents(lowerCase(person.getFirstName() + '.' + person.getLastName() +
-						'@' + dataMaster.getRandomValue(PERSONAL_EMAIL))).replaceAll(" ", "");
+				emailAddress = Globals.demo.getEmail();
 			}
 		}
 	}
@@ -98,6 +96,14 @@ public class EmailProvider implements Provider<Email>{
 
 	public void setPrimary(boolean isPrimary) {
 		this.isPrimary = isPrimary;
+	}
+
+
+
+	@Override
+	public Email get() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

@@ -1,5 +1,7 @@
 package com.deets.test_automation.test_data_generator.Employee.EmergencyContact;
 
+import java.util.Locale;
+
 import com.deets.test_automation.test_data_generator.Dictionary;
 import com.deets.test_automation.test_data_generator.Globals;
 import com.deets.test_automation.test_data_generator.Fairy.Fairy;
@@ -33,7 +35,7 @@ public class EmergencyContact {
 	}
 	
 	public EmergencyContact(DataMaster dataMaster) {
-		this.person = Fairy.builder().withFilePrefix(Globals.LOC).build().person();
+		this.person = Fairy.builder().withFilePrefix("data").withLocale(Locale.forLanguageTag(Globals.LOC)).build().person();
 		if (Globals.settings.isEmergencyRelationship()) {
 			relationship =  dataMaster.getValuesOfType(RELATIONSHIP, "dependent", String.class);
 			String relationship_en = dictionary.getRelationshipValue(relationship);

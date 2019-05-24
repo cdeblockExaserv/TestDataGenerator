@@ -35,6 +35,8 @@ public class SettingsPage {
 	private boolean country;
 	private boolean addressType;
 	private boolean state;
+	private boolean addressLine1;
+	private boolean addressLine2;
 	//phone
 	private boolean phoneType;
 	private boolean countryCode;
@@ -237,6 +239,14 @@ public class SettingsPage {
 
 	public boolean isState() {
 		return state;
+	}
+
+	public boolean isAddressLine1() {
+		return addressLine1;
+	}
+
+	public boolean isAddressLine2() {
+		return addressLine2;
 	}
 
 	public boolean isRelationship() {
@@ -569,6 +579,16 @@ public class SettingsPage {
 		this.areaCode = areaCode;
 	}
 	
+	@XmlElement(name="AddressLine1")
+	public void setAddressLine1(boolean addressLine1) {
+		this.addressLine1 = addressLine1;
+	}
+
+	@XmlElement(name="AddressLine2")
+	public void setAddressLine2(boolean addressLine2) {
+		this.addressLine2 = addressLine2;
+	}
+
 	@XmlElement(name="PhoneType")
 	public void setPhoneType(boolean phoneType) {
 		this.phoneType = phoneType;

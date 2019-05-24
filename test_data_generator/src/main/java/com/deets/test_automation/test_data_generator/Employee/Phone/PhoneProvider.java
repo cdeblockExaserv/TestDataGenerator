@@ -70,7 +70,7 @@ public class PhoneProvider implements Provider<Phone>{
 			phoneNumber = countryCode + " " + Globals.area + baseProducer.numerify(telephoneNumberFormat).toString();
 			if (!extension.equals("")) phoneNumber += " Ext. " + extension;
 		} else {
-			phoneNumber = "";
+			phoneNumber = Globals.demo.getBusinessPhone();
 		}
 	}
 	

@@ -1,60 +1,53 @@
 package com.deets.test_automation.test_data_generator.Employee.NationalInfo;
 
-import com.deets.test_automation.test_data_generator.Globals;
-import com.devskiller.jfairy.data.DataMaster;
-import com.devskiller.jfairy.producer.person.Person;
-import com.google.common.annotations.VisibleForTesting;
 
 public class NationalInfo {
 	
-	@VisibleForTesting
-	String NATIONAL_ID_TYPE = "nationalIdTypes";
-	@VisibleForTesting
-	String COUNTRY = "country";
+	private String nationalIDNumber;
+	private String nationalIDType;
+	private String country;
+	private boolean isPrimary;
 	
-	private final String nationalIDNumber;
-	private final String nationalIDType;
-	private final boolean isPrimary;
-	private final String country;
-
-	public NationalInfo(String number, String country, String nationalIDType, boolean isPrimary) {
+	public NationalInfo(String nationalIDNumber, String nationalIDType, String country, boolean isPrimary) {
+		super();
+		this.nationalIDNumber = nationalIDNumber;
 		this.nationalIDType = nationalIDType;
-		this.isPrimary = isPrimary;
 		this.country = country;
-		this.nationalIDNumber = number;
+		this.isPrimary = isPrimary;
+	}
+
+	
+	public String getNationalIDNumber() {
+		return nationalIDNumber;
+	}
+
+	public void setNationalIDNumber(String nationalIDNumber) {
+		this.nationalIDNumber = nationalIDNumber;
 	}
 
 	public String getNationalIDType() {
 		return nationalIDType;
 	}
 
-	public boolean getIsPrimary() {
-		return isPrimary;
+	public void setNationalIDType(String nationalIDType) {
+		this.nationalIDType = nationalIDType;
 	}
-	
+
 	public String getCountry() {
 		return country;
 	}
-	
-	public String getNationalIDNumber() {
-		return nationalIDNumber;
+
+	public void setCountry(String country) {
+		this.country = country;
 	}
 
-	public NationalInfo(Person person, DataMaster dataMaster) {
-		if (Globals.settings.isNationalIDNumber()) {
-			nationalIDNumber = person.getNationalIdentityCardNumber();
-		} else nationalIDNumber = "";
-		if (Globals.settings.isNationalIDType()) {
-			nationalIDType = dataMaster.getRandomValue(NATIONAL_ID_TYPE);
-		} else nationalIDType = "";
-		if (Globals.settings.isIDCountry()) {
-			country = dataMaster.getRandomValue(COUNTRY);
-		} else country = "";
-		if (Globals.settings.isNationalIDisPrimary()) {
-			isPrimary = true;
-		} else isPrimary = false;
-		
-		
+	public boolean isPrimary() {
+		return isPrimary;
 	}
+
+	public void setPrimary(boolean isPrimary) {
+		this.isPrimary = isPrimary;
+	}
+
 	
 }

@@ -26,6 +26,9 @@ public class Employee /*extends Person*/{
 	private static Integer employeeID;
 	private Integer age;
 	private LocalDate dateOfBirth;
+	protected String firstName;
+	protected String middleName;
+	protected String lastName;
 	private String suffix;
 	private String maritalStatus;
 	private String nativePreferedLanguage;
@@ -53,7 +56,8 @@ public class Employee /*extends Person*/{
 	private CustomField customField10;
 	
 	
-	public Employee(Integer age, LocalDate dateOfBirth, String suffix, String maritalStatus,String nativePreferedLanguage, String displayName, String preferedName, 
+	public Employee(Integer age, LocalDate dateOfBirth, String firstName, String middleName, String lastName, String suffix,
+			String maritalStatus,String nativePreferedLanguage, String displayName, String preferedName, 
 			String birthName, String prefix, LocalDate maritalStatusSince, Person person, NationalInfo nationalInfo, 
 			Dependent dependent, Email email, Phone phone, EmergencyContact emergencyContact, Address address, Job job,
 			CustomField customField1, CustomField customField2, CustomField customField3, CustomField customField4, 
@@ -61,13 +65,17 @@ public class Employee /*extends Person*/{
 			CustomField customField9, CustomField customField10, DataMaster dataMaster) {
 
 		this.dataMaster = dataMaster;
+		//TODO: Fix nationality incremental restart (fr should be 700000)
 		if (Globals.settings.isEmployeeID()) {
 			if (employeeID == null) {
 				employeeID = Integer.valueOf(dataMaster.getRandomValue("employeeIDStart")) - 1;
 			}
 			employeeID++;
-		} else employeeID = null;
+		} else employeeID = Integer.valueOf(Globals.demo.getEmployeeID());
 		this.suffix = suffix;
+		this.firstName = firstName;
+		this.middleName = middleName;
+		this.lastName = lastName;
 		this.maritalStatus = maritalStatus;
 		this.nativePreferedLanguage = nativePreferedLanguage;
 		this.displayName = displayName;
@@ -284,6 +292,7 @@ public class Employee /*extends Person*/{
 	public CustomField getCustomField10() {
 		return customField10;
 	}
+	
 
 	public void setCustomField1(CustomField customField1) {
 		this.customField1 = customField1;
@@ -314,6 +323,30 @@ public class Employee /*extends Person*/{
 	}
 	public void setCustomField10(CustomField customField10) {
 		this.customField10 = customField10;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getMiddleName() {
+		return middleName;
+	}
+
+	public void setMiddleName(String middleName) {
+		this.middleName = middleName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 	
 	

@@ -70,7 +70,7 @@ public abstract class AbstractAddress implements Address{
 	public abstract String getAddressLine1();
 
 	public abstract String getAddressLine2();
-
+	
 	@Override
 	public String toString() {
 		return getAddressLine1() + System.lineSeparator() + getAddressLine2();

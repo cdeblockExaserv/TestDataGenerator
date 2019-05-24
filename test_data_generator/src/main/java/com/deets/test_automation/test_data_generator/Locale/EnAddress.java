@@ -1,6 +1,8 @@
 package com.deets.test_automation.test_data_generator.Locale;
 
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
+
+import com.deets.test_automation.test_data_generator.Globals;
 import com.deets.test_automation.test_data_generator.Employee.Address.AbstractAddress;
 
 public class EnAddress extends AbstractAddress {
@@ -12,12 +14,18 @@ public class EnAddress extends AbstractAddress {
 
 	@Override
 	public String getAddressLine1() {
-		return streetNumber + " " + street
+		if (Globals.settings.isAddressLine1()) {
+			return streetNumber + " " + street
 				+ (isNotBlank(apartmentNumber) ? " APT " + apartmentNumber : "");
+		} else return Globals.demo.getAddressLine1();
 	}
 
 	@Override
 	public String getAddressLine2() {
-		return city + " " + postalCode;
+		if (Globals.settings.isAddressLine2()) {
+			return city + " " + postalCode;
+		} else return Globals.demo.getAddressLine2();
 	}
+	
+	
 }

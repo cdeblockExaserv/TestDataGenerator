@@ -175,7 +175,7 @@ public class JobProvider implements Provider<Job>{
 						LocalDate.now().minusDays(1));
 			}
 			
-		} else positionEntryDate = LocalDate.MIN;
+		} else positionEntryDate = LocalDate.parse(Globals.demo.getHireDate());
 	}
 
 	public void generateCompany() {
@@ -193,19 +193,19 @@ public class JobProvider implements Provider<Job>{
 	public void generateDivision() {
 		if(Globals.settings.isDivision()) {
 			division = dataMaster.getRandomValue(DIVISION);		
-		} else division = "";
+		} else division = Globals.demo.getDivision();
 	}
 
 	public void generateDepartment() {
 		if(Globals.settings.isDepartment()) {
 			department = dataMaster.getRandomValue(DEPARTMENT);		
-		} else department = "";
+		} else department = Globals.demo.getDepartment();
 	}
 
 	public void generateLocation() {
 		if(Globals.settings.isLocation()) {
 			location = dataMaster.getRandomValue(LOCATION);		
-		} else location = "";
+		} else location = Globals.demo.getLocation();
 	}
 
 	public void generateCostcenter() {
@@ -219,17 +219,17 @@ public class JobProvider implements Provider<Job>{
 			ArrayList<String> timezones = new ArrayList<String>(Arrays.asList(Globals.timezone.split("/")));
 			Random r = new Random();
 			timezone = timezones.get(r.nextInt(timezones.size()));
-		} else timezone = "";
+		} else timezone = Globals.demo.getTimeZone();
 		
 	}
 
 	public void generateSupervisor() {
 		if(Globals.settings.isSupervisor()) {
-			if (!Globals.Employees.isEmpty()) {
-				int index = baseProducer.randomBetween(0, Globals.Employees.size()-1);
-				supervisor = Globals.Employees.get(index).getEmployeeID().toString();
+			if (!Globals.employees.isEmpty()) {
+				int index = baseProducer.randomBetween(0, Globals.employees.size()-1);
+				supervisor = Globals.employees.get(index).getEmployeeID().toString();
 			} else supervisor = "";	
-		} else supervisor = "";
+		} else supervisor = Globals.demo.getManager();
 	}
 
 	public void generateJobClassification() {
@@ -249,7 +249,7 @@ public class JobProvider implements Provider<Job>{
 			if(positionTitle == "") {
 				localJobTitle = StringUtils.substringBefore(position, "(");
 			} else localJobTitle = "";		
-		} else localJobTitle = "";
+		} else localJobTitle = Globals.demo.getTitle();
 	}
 
 	public void generatePayGrade() {
@@ -337,7 +337,7 @@ public class JobProvider implements Provider<Job>{
 		if(Globals.settings.isLmsJobCodeID()) {
 			// TODO:Get complementary data instead of (3000, 5000)
 			LMS_jobCodeID = baseProducer.randomBetween(3000, 5000);	
-		} else LMS_jobCodeID = 0;
+		} else LMS_jobCodeID = Integer.valueOf(Globals.demo.getJobCode());
 	}
 
 	public void generateEeoJobGroup() {

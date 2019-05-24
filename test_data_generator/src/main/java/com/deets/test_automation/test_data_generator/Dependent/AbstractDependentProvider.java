@@ -1,6 +1,7 @@
 package com.deets.test_automation.test_data_generator.Dependent;
 
 import java.time.LocalDate;
+import java.util.Locale;
 
 import com.deets.test_automation.test_data_generator.Dictionary;
 import com.deets.test_automation.test_data_generator.Globals;
@@ -67,7 +68,7 @@ public abstract class AbstractDependentProvider implements DependentProvider{
 	}
 	
 	public Person getPerson() {
-		person = Fairy.builder().withFilePrefix(Globals.LOC).build().person();
+		person = Fairy.builder().withFilePrefix("data").withLocale(Locale.forLanguageTag(Globals.LOC)).build().person();
 		return person;
 	}
 	

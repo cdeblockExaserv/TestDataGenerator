@@ -12,5 +12,6 @@ public interface Address{
 	String getCountry();
 	String getAddressType();
 	String getState();
+	
 
 }

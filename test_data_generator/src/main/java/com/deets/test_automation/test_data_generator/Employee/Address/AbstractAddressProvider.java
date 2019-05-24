@@ -2,7 +2,6 @@ package com.deets.test_automation.test_data_generator.Employee.Address;
 
 import org.apache.commons.csv.CSVRecord;
 import java.util.Random;
-
 import com.deets.test_automation.test_data_generator.Globals;
 import com.devskiller.jfairy.data.DataMaster;
 import com.devskiller.jfairy.producer.BaseProducer;
@@ -36,7 +35,9 @@ public abstract class AbstractAddressProvider implements AddressProvider{
 		start = Integer.valueOf(csvRecord.get(1).toString());
 		end = Integer.valueOf(csvRecord.get(2).toString());
 		Globals.area = !csvRecord.get(3).isEmpty() ? csvRecord.get(3).toString() + "-" : "";
+			//Maybe implement DST for FR?
 		Globals.timezone = csvRecord.get(4);
+		Globals.IDarea = csvRecord.get(5);
 	}
 
 	public String getCountry() {
